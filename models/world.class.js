@@ -43,8 +43,12 @@ class World {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.statusBarHealth.setPercentage(this.character.energy);
+            } else if (this.canChickenGetHit(enemy)) {
+                this.isCollidingFromTop(enemy);
+            } else if (!enemy.energy) {
+                this.removeChicken(enemy);
             }
-        });
+        })
     }
 
 
