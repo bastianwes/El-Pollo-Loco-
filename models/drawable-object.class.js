@@ -3,13 +3,13 @@ class DrawableObject {
     imageCache = {};
     currentImage = 0;
     x = 120;
-    y = 280; 
+    y = 280;
     height = 150;
     width = 100;
 
 
 
-    
+
     // loadImage('img/test.png);
     loadImage(path) {
         this.img = new Image(); // this.img = document.getElementById('image') <img id="iamge" src>
@@ -22,9 +22,9 @@ class DrawableObject {
     }
 
 
-    
+
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
@@ -34,12 +34,12 @@ class DrawableObject {
     }
 
 
-    
+
     /**
-     * 
-     * @param {Array} arr - ['img/image1.png', 'img/image2.png', ...] 
+     *
+     * @param {Array} arr - ['img/image1.png', 'img/image2.png', ...]
      */
-     loadImages(arr) {
+    loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
             img.src = path;
