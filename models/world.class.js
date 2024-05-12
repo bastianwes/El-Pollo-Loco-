@@ -64,7 +64,7 @@ class World {
             if (this.character.isColliding(coin)) {
                 this.level.coins.splice(index, 1);
                 if (this.character.collectCoin()) {
-                    this.statusBarCoin.updatePercentage(this.character.numberOfCoins * 20);
+                    this.statusBarCoin.updatePercentage(this.character.numberOfCoins * 10);
                 }
             }
         });
