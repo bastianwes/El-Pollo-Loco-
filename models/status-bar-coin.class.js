@@ -30,6 +30,10 @@ class StatusBarCoin extends DrawableObject {
     this.img = this.imageCache[path];
   }
 
+  updatePercentage(newPercentage) {
+    this.setPercentage(newPercentage);
+  }
+
 
   resolveImageIndex() {
     if (this.percentage == 100) {

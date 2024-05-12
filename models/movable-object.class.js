@@ -5,6 +5,7 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     numberOfBottles = 0;
+    numberOfCoins = 0;
     lastHit = 0;
     bottle_sound = new Audio('audio/bottle.mp3');
     applyGravity() {
@@ -47,6 +48,17 @@ class MovableObject extends DrawableObject {
             this.numberOfBottles++;
             this.bottle_sound.play();
             console.log("Eine Flasche wurde gesammelt. Anzahl der Flaschen:", this.numberOfBottles);
+            return true;
+        } else {
+            console.log("Maximale Anzahl an Flaschen bereits gesammelt.");
+            return false;
+        }
+    }
+
+    collectCoin() {
+        if (this.numberOfCoins < 10) {
+            this.numberOfCoins++;
+            console.log("Eine Münze wurde gesammelt");
             return true;
         } else {
             console.log("Maximale Anzahl an Flaschen bereits gesammelt.");
