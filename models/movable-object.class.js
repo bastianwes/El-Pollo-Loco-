@@ -6,7 +6,7 @@ class MovableObject extends DrawableObject {
     energy = 100;
     numberOfBottles = 0;
     lastHit = 0;
-
+    bottle_sound = new Audio('audio/bottle.mp3');
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -45,6 +45,7 @@ class MovableObject extends DrawableObject {
     collectBottle() {
         if (this.numberOfBottles < 5) {
             this.numberOfBottles++;
+            this.bottle_sound.play();
             console.log("Eine Flasche wurde gesammelt. Anzahl der Flaschen:", this.numberOfBottles);
             return true;
         } else {
