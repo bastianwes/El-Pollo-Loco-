@@ -26,6 +26,7 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
+            this.checkCollisionsWithBottles();
             this.checkThrowObjects();
         }, 200);
     }
@@ -46,7 +47,16 @@ class World {
         });
     }
 
+    checkCollisionsWithBottles() {
+        this.level.bottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                this.level.bottles.splice(index, 1);
+                // Flasche aufnehmen und Menge aktualisieren
 
+                this.statusBarHealth.setPercentage(this.character.amountOfBottles);
+            }
+        });
+    }
 
 
     draw() {
