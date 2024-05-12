@@ -42,6 +42,7 @@ class Character extends MovableObject {
 
     world;
     walking_sound = new Audio('audio/running.mp3');
+    jumping_sound = new Audio('audio/jump.mp3');
 
 
 
@@ -73,6 +74,7 @@ class Character extends MovableObject {
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+                this.jumping_sound.play();
                 this.jump();
             }
 
