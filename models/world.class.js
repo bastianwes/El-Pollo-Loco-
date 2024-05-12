@@ -27,6 +27,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkCollisionsWithBottles();
+            this.checkCollisionsWithCoins();
             this.checkThrowObjects();
         }, 200);
     }
@@ -54,6 +55,14 @@ class World {
                     this.level.bottles.splice(index, 1);
                     this.statusBarBottle.updatePercentage(this.character.numberOfBottles * 20);
                 }
+            }
+        });
+    }
+
+    checkCollisionsWithCoins() {
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                this.level.coins.splice(index, 1);
             }
         });
     }

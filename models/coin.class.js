@@ -8,7 +8,7 @@ class Coin extends MovableObject {
     super().loadImage(this.IMAGES_COIN[0]);
     this.loadImages(this.IMAGES_COIN);
 
-    this.x = 100 + Math.random() * 1500;
+    this.x = 100 + Math.random() * 2000;
     this.y = 75 + Math.random() * 100;
     this.width = 120;
     this.height = 120;
