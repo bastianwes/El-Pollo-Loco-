@@ -50,14 +50,13 @@ class World {
     checkCollisionsWithBottles() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
-                this.level.bottles.splice(index, 1);
-                // Flasche aufnehmen und Menge aktualisieren
-
-                this.statusBarHealth.setPercentage(this.character.amountOfBottles);
+                if (this.character.collectBottle()) {
+                    this.level.bottles.splice(index, 1);
+                    this.statusBarBottle.updatePercentage(this.character.numberOfBottles * 20);
+                }
             }
         });
     }
-
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

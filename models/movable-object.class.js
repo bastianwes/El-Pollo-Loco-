@@ -4,6 +4,7 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
+    numberOfBottles = 0;
     lastHit = 0;
 
     applyGravity() {
@@ -24,7 +25,7 @@ class MovableObject extends DrawableObject {
     }
 
 
-    // character.isColliding(chicken); 
+    // character.isColliding(chicken);
     isColliding(mo) {
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
@@ -41,6 +42,17 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    collectBottle() {
+        if (this.numberOfBottles < 5) {
+            this.numberOfBottles++;
+            console.log("Eine Flasche wurde gesammelt. Anzahl der Flaschen:", this.numberOfBottles);
+            return true;
+        } else {
+            console.log("Maximale Anzahl an Flaschen bereits gesammelt.");
+            return false;
+        }
+    }
+
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
         timepassed = timepassed / 1000; // Difference in s
@@ -52,7 +64,7 @@ class MovableObject extends DrawableObject {
     }
 
     playAnimation(images) {
-        let i = this.currentImage % images.length; // let i = 7 % 6; =>  1, Rest 1 
+        let i = this.currentImage % images.length; // let i = 7 % 6; =>  1, Rest 1
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
