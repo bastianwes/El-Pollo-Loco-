@@ -33,11 +33,14 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && this.character.numberOfBottles > 0) { // Überprüfe, ob die "D"-Taste gedrückt wird und der Spieler Flaschen hat
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
+            this.character.numberOfBottles--; // Reduziere die Anzahl der Flaschen im Inventar um eins
+            this.statusBarBottle.reducePercentage();
         }
     }
+
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {

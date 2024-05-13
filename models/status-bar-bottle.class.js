@@ -32,6 +32,13 @@ class StatusBarBottle extends DrawableObject {
     this.setPercentage(newPercentage);
   }
 
+  reducePercentage() {
+    if (this.percentage > 0) {
+      this.percentage -= 20; // Reduziere die Prozentzahl um 20
+      this.setPercentage(this.percentage);
+    }
+  }
+
   resolveImageIndex() {
     if (this.percentage == 100) {
       return 5;
