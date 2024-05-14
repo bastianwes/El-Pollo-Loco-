@@ -47,10 +47,8 @@ class MovableObject extends DrawableObject {
         if (this.numberOfBottles < 5) {
             this.numberOfBottles++;
             this.bottle_sound.play();
-            console.log("Eine Flasche wurde gesammelt. Anzahl der Flaschen:", this.numberOfBottles);
             return true;
         } else {
-            console.log("Maximale Anzahl an Flaschen bereits gesammelt.");
             return false;
         }
     }
@@ -58,10 +56,8 @@ class MovableObject extends DrawableObject {
     collectCoin() {
         if (this.numberOfCoins < 10) {
             this.numberOfCoins++;
-            console.log("Eine Münze wurde gesammelt");
             return true;
         } else {
-            console.log("Maximale Anzahl an Flaschen bereits gesammelt.");
             return false;
         }
     }
@@ -78,7 +74,6 @@ class MovableObject extends DrawableObject {
 
     applyDamage() {
         this.energy -= 100;
-        console.log("Energy chicken:", this.energy);
         return this.energy;
     }
 
