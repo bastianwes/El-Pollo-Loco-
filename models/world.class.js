@@ -29,6 +29,7 @@ class World {
             this.checkCollisionsWithBottles();
             this.checkCollisionsWithCoins();
             this.checkThrowObjects();
+            this.checkHitEnemy();
         }, 200);
     }
 
@@ -41,12 +42,16 @@ class World {
         }
     }
 
-
     checkCollisions() {
-        this.level.enemies.forEach((enemy) => {
+        this.level.enemies.forEach((enemy, index) => {
             if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.statusBarHealth.setPercentage(this.character.energy);
+                if (!this.character.isFalling() || !this.character.isAboveGround()) {
+                    this.character.hit();
+                    this.statusBarHealth.setPercentage(this.character.energy);
+                } else {
+                    this.character.jump();
+                    this.level.enemies.splice(index, 1);
+                }
             }
         });
     }
@@ -70,6 +75,16 @@ class World {
                     this.statusBarCoin.updatePercentage(this.character.numberOfCoins * 10);
                 }
             }
+        });
+    }
+
+    checkHitEnemy() {
+        this.throwableObjects.forEach((bottle) => {
+            this.level.enemies.forEach((enemy) => {
+                if (bottle.isColliding(enemy)) {
+                    console.log("hit enemy");
+                }
+            });
         });
     }
 

@@ -94,4 +94,8 @@ class MovableObject extends DrawableObject {
     jump() {
         this.speedY = 30;
     }
+
+    isFalling() {
+        return this.speedY < 0;
+    }
 }
