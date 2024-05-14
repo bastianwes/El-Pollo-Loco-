@@ -76,6 +76,18 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
+    applyDamage() {
+        this.energy -= 100;
+        console.log("Energy chicken:", this.energy);
+        return this.energy;
+    }
+
+    chickenDead() {
+        if (this.energy >= 0) {
+            this.playAnimation(this.IMAGES_DEAD);
+        }
+    }
+
     playAnimation(images) {
         let i = this.currentImage % images.length; // let i = 7 % 6; =>  1, Rest 1
         let path = images[i];

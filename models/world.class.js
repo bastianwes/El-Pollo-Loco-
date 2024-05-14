@@ -50,11 +50,18 @@ class World {
                     this.statusBarHealth.setPercentage(this.character.energy);
                 } else {
                     this.character.jump();
-                    this.level.enemies.splice(index, 1);
+                    enemy.applyDamage();
+                    enemy.chickenDead(index);
+                    setTimeout(() => {
+                        if (this.level.enemies.includes(enemy)) {
+                            this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
+                        }
+                    }, 700);
                 }
             }
         });
     }
+
 
     checkCollisionsWithBottles() {
         this.level.bottles.forEach((bottle, index) => {
