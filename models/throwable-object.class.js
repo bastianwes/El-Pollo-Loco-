@@ -17,6 +17,8 @@ class ThrowableObject extends MovableObject {
     ];
 
     throw_sound = new Audio('audio/throw.mp3');
+    // glass_sound = new Audio('audio/glass.mp3');
+    // this.glass_sound.play();
 
     constructor(x, y) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
@@ -32,7 +34,7 @@ class ThrowableObject extends MovableObject {
 
 
     throw() {
-        this.speedY = 30;
+        this.speedY = 20;
         this.applyGravity();
         this.throw_sound.play();
         setInterval(() => {

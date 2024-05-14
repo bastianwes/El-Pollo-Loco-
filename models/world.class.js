@@ -10,6 +10,7 @@ class World {
     statusBarBottle = new StatusBarBottle();
     throwableObjects = [];
 
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -48,11 +49,8 @@ class World {
                 if (bottle.isColliding(enemy)) {
                     enemy.applyDamage();
                     enemy.chickenDead();
-                    setTimeout(() => {
-                        if (this.level.enemies.includes(enemy)) {
-                            this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
-                        }
-                    }, 100);
+                    this.level.enemies.includes(enemy);
+                    this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
                 }
             });
         });
