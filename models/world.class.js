@@ -42,6 +42,23 @@ class World {
         }
     }
 
+    checkHitEnemy() {
+        this.throwableObjects.forEach((bottle) => {
+            this.level.enemies.forEach((enemy) => {
+                if (bottle.isColliding(enemy)) {
+                    enemy.applyDamage();
+                    enemy.chickenDead();
+                    setTimeout(() => {
+                        if (this.level.enemies.includes(enemy)) {
+                            this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
+                        }
+                    }, 100);
+                }
+            });
+        });
+    }
+
+
     checkCollisions() {
         this.level.enemies.forEach((enemy, index) => {
             if (this.character.isColliding(enemy)) {
@@ -61,6 +78,9 @@ class World {
             }
         });
     }
+
+
+
 
 
     checkCollisionsWithBottles() {
@@ -85,15 +105,6 @@ class World {
         });
     }
 
-    checkHitEnemy() {
-        this.throwableObjects.forEach((bottle) => {
-            this.level.enemies.forEach((enemy) => {
-                if (bottle.isColliding(enemy)) {
-                    console.log("hit enemy");
-                }
-            });
-        });
-    }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
