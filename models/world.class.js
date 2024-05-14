@@ -47,7 +47,7 @@ class World {
         this.throwableObjects.forEach((bottle) => {
             this.level.enemies.forEach((enemy) => {
                 if (bottle.isColliding(enemy)) {
-                    enemy.applyDamage();
+                    enemy.applyDamageWithBottle();
                     enemy.chickenDead();
                     this.level.enemies.includes(enemy);
                     this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);

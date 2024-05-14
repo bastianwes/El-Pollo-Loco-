@@ -8,6 +8,7 @@ class MovableObject extends DrawableObject {
     numberOfCoins = 0;
     lastHit = 0;
     bottle_sound = new Audio('audio/bottle.mp3');
+    glass_sound = new Audio('audio/glass.mp3');
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -64,7 +65,7 @@ class MovableObject extends DrawableObject {
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
-        timepassed = timepassed / 1000; // Difference in s
+        timepassed = timepassed / 300; // Difference in s
         return timepassed < 1;
     }
 
@@ -74,6 +75,12 @@ class MovableObject extends DrawableObject {
 
     applyDamage() {
         this.energy -= 100;
+        return this.energy;
+    }
+
+    applyDamageWithBottle() {
+        this.energy -= 100;
+        this.glass_sound.play();
         return this.energy;
     }
 
