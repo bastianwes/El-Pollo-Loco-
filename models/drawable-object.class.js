@@ -28,9 +28,22 @@ class DrawableObject {
             || this instanceof Coin || this instanceof BottleRight || this instanceof BottleLeft || this instanceof ThrowableObject
         ) {
             ctx.beginPath();
-            ctx.lineWidth = '5';
+            ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';
             ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        } if (this instanceof Character) {
+            ctx.beginPath();
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = 'red';
+            ctx.rect(this.x, this.y + 100, this.width, this.offset_height);
+            ctx.stroke();
+        }
+        if (this instanceof Coin) {
+            ctx.beginPath();
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = 'red';
+            ctx.rect(this.x + 35, this.y + 35, this.width - 70, this.height - 70)
             ctx.stroke();
         }
     }
