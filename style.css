@@ -2,8 +2,91 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-image: url('img/5_background/second_half_background.png');
+    backdrop-filter: blur(4px);
+    margin: 0;
+    font-family: 'zabras', Arial, Helvetica, sans-serif;
+}
+
+@font-face {
+    font-family: 'zabras';
+    src: url('fonts/zabars.ttf') format('truetype');
 }
 
 canvas {
     background-color: black;
+}
+
+.start_screen {
+    display: block;
+    width: 720px;
+    height: 480px;
+    position: relative;
+}
+
+.navigation {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
+    gap: 80px;
+}
+
+.introduction button,
+.help button,
+.start button {
+    font-size: 50px;
+    background-color: #FFCB00;
+    color: #A0220A;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Apply transition to all properties */
+    font-family: 'zabras', Arial, Helvetica, sans-serif;
+    transform-origin: center;
+    /* Set transform origin to center */
+}
+
+@keyframes rotate-left {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    33% {
+        transform: rotate(-30deg);
+    }
+
+    66% {
+        transform: rotate(30deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.introduction button:hover,
+.help button:hover,
+.start button:hover {
+    background-color: #FFCB00;
+    animation: rotate-left 1s ease-in-out forwards,
+        rotate-right 1s ease-in-out 1s forwards,
+        rotate-left 1s ease-in-out 2s forwards;
+}
+
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
 }

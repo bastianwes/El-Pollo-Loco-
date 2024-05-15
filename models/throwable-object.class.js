@@ -39,12 +39,12 @@ class ThrowableObject extends MovableObject {
         this.throw_sound.play();
         if (!this.throwDirection) {
             setInterval(() => {
-                this.x += 10;
+                this.x += 4;
                 this.playAnimation(this.IMAGES_ROTATION);
             }, 1000 / 60);
         } else {
             setInterval(() => {
-                this.x -= 10;
+                this.x -= 4;
                 this.playAnimation(this.IMAGES_ROTATION);
             }, 1000 / 60);
         }

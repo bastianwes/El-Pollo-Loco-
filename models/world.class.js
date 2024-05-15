@@ -11,7 +11,6 @@ class World {
     throwableObjects = [];
     throwBottle = false;
 
-
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -42,15 +41,12 @@ class World {
                 this.throwBottle = false;
             }, 300);
             let throwDirection = this.character.otherDirection; // Umgekehrte Richtung des Charakters
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, throwDirection);
+            let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 10, throwDirection);
             this.throwableObjects.push(bottle);
             this.character.numberOfBottles--;
             this.statusBarBottle.reducePercentage();
         }
     }
-
-
-
 
     checkHitEnemy() {
         this.throwableObjects.forEach((bottle) => {
@@ -64,7 +60,6 @@ class World {
             });
         });
     }
-
 
     checkCollisions() {
         this.level.enemies.forEach((enemy, index) => {
