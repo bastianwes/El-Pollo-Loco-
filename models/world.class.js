@@ -77,10 +77,6 @@ class World {
         });
     }
 
-
-
-
-
     checkCollisionsWithBottles() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
@@ -102,7 +98,6 @@ class World {
             }
         });
     }
-
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

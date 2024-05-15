@@ -36,10 +36,10 @@ class MovableObject extends DrawableObject {
     }
 
     collidingWithCoins(mo) {
-        return this.offsetX + this.offset_width > mo &&
-            this.offsetY + this.offset_height > mo &&
-            this.offsetX < mo &&
-            this.offsetY < mo + mo.height;
+        return this.offsetX + this.offset_width > mo.x &&
+            this.offsetY + this.offset_height > mo.y &&
+            this.offsetX < mo.x &&
+            this.offsetY < mo.y + mo.height;
     }
 
 
