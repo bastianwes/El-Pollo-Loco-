@@ -9,6 +9,7 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     bottle_sound = new Audio('audio/bottle.mp3');
     glass_sound = new Audio('audio/glass.mp3');
+    coin_sound = new Audio('audio/coin.mp3');
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -67,16 +68,32 @@ class MovableObject extends DrawableObject {
     collectBottle() {
         if (this.numberOfBottles < 5) {
             this.numberOfBottles++;
-            this.bottle_sound.play();
+
+            // Überprüfe, ob das vorherige Audio beendet ist
+            if (this.bottle_sound.ended || this.bottle_sound.paused) {
+                this.bottle_sound.play();
+            } else {
+                // Wenn das vorherige Audio noch nicht beendet ist, starte es von Anfang an
+                this.bottle_sound.currentTime = 0;
+                this.bottle_sound.play();
+            }
+
             return true;
         } else {
             return false;
         }
     }
 
+
     collectCoin() {
         if (this.numberOfCoins < 10) {
             this.numberOfCoins++;
+            if (this.coin_sound.ended || this.coin_sound.paused) {
+                this.coin_sound.play();
+            } else {
+                this.coin_sound.currentTime = 0;
+                this.coin_sound.play();
+            }
             return true;
         } else {
             return false;
