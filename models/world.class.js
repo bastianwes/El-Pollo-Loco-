@@ -94,7 +94,7 @@ class World {
 
     checkCollisionsWithCoins() {
         this.level.coins.forEach((coin, index) => {
-            if (this.character.isColliding(coin)) {
+            if (this.character.collidingWithCoins(coin)) {
                 this.level.coins.splice(index, 1);
                 if (this.character.collectCoin()) {
                     this.statusBarCoin.updatePercentage(this.character.numberOfCoins * 10);
