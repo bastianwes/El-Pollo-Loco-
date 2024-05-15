@@ -50,12 +50,11 @@ class World {
 
     checkHitEnemy() {
         this.throwableObjects.forEach((bottle) => {
-            this.level.enemies.forEach((enemy) => {
+            this.level.enemies.forEach((enemy, index) => {
                 if (bottle.isColliding(enemy)) {
                     enemy.applyDamageWithBottle();
-                    enemy.chickenDead();
-                    this.level.enemies.includes(enemy);
-                    this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
+                    bottle.splashBottle(); // Aufruf der splashBottle() Funktion der Flasche
+                    this.level.enemies.splice(index, 1); // Entferne den Gegner aus der Liste
                 }
             });
         });

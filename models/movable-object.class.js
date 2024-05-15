@@ -127,6 +127,18 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    applyDamageWithBottle() {
+        this.energy -= 100;
+        this.glass_sound.play();
+        return this.energy;
+    }
+
+    splashBottle() {
+        if (this.energy >= 0) {
+            this.playAnimation(this.IMAGES_SPLASH);
+        }
+    }
+
     playAnimation(images) {
         let i = this.currentImage % images.length; // let i = 7 % 6; =>  1, Rest 1
         let path = images[i];
