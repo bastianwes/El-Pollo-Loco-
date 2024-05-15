@@ -1,4 +1,6 @@
 class ThrowableObject extends MovableObject {
+    height = 60;
+    width = 50;
 
     IMAGES_ROTATION = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -26,11 +28,10 @@ class ThrowableObject extends MovableObject {
         this.loadImages(this.IMAGES_SPLASH);
         this.x = x;
         this.y = y;
-        this.height = 60;
-        this.width = 50;
         this.throwDirection = throwLeft;
         this.throw();
     }
+
 
 
     throw() {
@@ -38,12 +39,12 @@ class ThrowableObject extends MovableObject {
         this.applyGravity();
         this.throw_sound.play();
         if (!this.throwDirection) {
-            setInterval(() => {
+            this.rotationInterval = setInterval(() => {
                 this.x += 4;
                 this.playAnimation(this.IMAGES_ROTATION);
             }, 1000 / 60);
         } else {
-            setInterval(() => {
+            this.rotationInterval = setInterval(() => {
                 this.x -= 4;
                 this.playAnimation(this.IMAGES_ROTATION);
             }, 1000 / 60);

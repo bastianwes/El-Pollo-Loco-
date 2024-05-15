@@ -11,7 +11,7 @@ class MovableObject extends DrawableObject {
     glass_sound = new Audio('audio/glass.mp3');
     coin_sound = new Audio('audio/coin.mp3');
     applyGravity() {
-        setInterval(() => {
+        this.gravityInterval = setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
@@ -42,6 +42,11 @@ class MovableObject extends DrawableObject {
             rectY = this.offsetY;
             rectWidth = this.offset_width;
             rectHeight = this.offset_height;
+        } else if (this instanceof Chicken || this instanceof SmallChicken) {
+            rectX = this.x;
+            rectY = this.y;
+            rectWidth = this.width;
+            rectHeight = this.height - 30;
         } else {
             rectX = this.x;
             rectY = this.y;
@@ -135,7 +140,9 @@ class MovableObject extends DrawableObject {
 
     splashBottle() {
         if (this.energy >= 0) {
-            this.playAnimation(this.IMAGES_SPLASH);
+            clearInterval(this.rotationInterval); // Stoppe die Rotation
+            clearInterval(this.gravityInterval); // Stoppe die Gravitationsbewegung
+            this.playAnimation(this.IMAGES_SPLASH); // Spiele die Splash-Animation
         }
     }
 
