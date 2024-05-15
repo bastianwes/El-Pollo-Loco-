@@ -29,17 +29,29 @@ class MovableObject extends DrawableObject {
 
     // character.isColliding(chicken);
     isColliding(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.y + mo.height;
-    }
+        let rectX, rectY, rectWidth, rectHeight;
 
-    collidingWithCoins(mo) {
-        return this.offsetX + this.offset_width > mo.x &&
-            this.offsetY + this.offset_height > mo.y &&
-            this.offsetX < mo.x &&
-            this.offsetY < mo.y + mo.height;
+        if (this instanceof Character) {
+            rectX = this.x;
+            rectY = this.y + 100;
+            rectWidth = this.width;
+            rectHeight = this.offset_height;
+        } else if (this instanceof Coin) {
+            rectX = this.offsetX;
+            rectY = this.offsetY;
+            rectWidth = this.offset_width;
+            rectHeight = this.offset_height;
+        } else {
+            rectX = this.x;
+            rectY = this.y;
+            rectWidth = this.width;
+            rectHeight = this.height;
+        }
+
+        return rectX + rectWidth > mo.x &&
+            rectY + rectHeight > mo.y &&
+            rectX < mo.x + mo.width &&
+            rectY < mo.y + mo.height;
     }
 
 
