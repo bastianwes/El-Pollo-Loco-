@@ -17,9 +17,10 @@ class ThrowableObject extends MovableObject {
     ];
 
     throw_sound = new Audio('audio/throw.mp3');
+    throwDirection;
 
 
-    constructor(x, y) {
+    constructor(x, y, throwLeft) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
         this.loadImages(this.IMAGES_ROTATION);
         this.loadImages(this.IMAGES_SPLASH);
@@ -27,8 +28,8 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.height = 60;
         this.width = 50;
+        this.throwDirection = throwLeft;
         this.throw();
-
     }
 
 
@@ -36,9 +37,17 @@ class ThrowableObject extends MovableObject {
         this.speedY = 20;
         this.applyGravity();
         this.throw_sound.play();
-        setInterval(() => {
-            this.x += 10;
-            this.playAnimation(this.IMAGES_ROTATION);
-        }, 55);
+        if (!this.throwDirection) {
+            setInterval(() => {
+                this.x += 10;
+                this.playAnimation(this.IMAGES_ROTATION);
+            }, 1000 / 60);
+        } else {
+            setInterval(() => {
+                this.x -= 10;
+                this.playAnimation(this.IMAGES_ROTATION);
+            }, 1000 / 60);
+        }
     }
+
 }

@@ -9,6 +9,7 @@ class World {
     statusBarCoin = new StatusBarCoin();
     statusBarBottle = new StatusBarBottle();
     throwableObjects = [];
+    throwBottle = false;
 
 
     constructor(canvas, keyboard) {
@@ -35,13 +36,21 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D && this.character.numberOfBottles > 0) { // Überprüfe, ob die "D"-Taste gedrückt wird und der Spieler Flaschen hat
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+        if (this.keyboard.D && this.character.numberOfBottles > 0 && !this.throwBottle) {
+            this.throwBottle = true;
+            setTimeout(() => {
+                this.throwBottle = false;
+            }, 300);
+            let throwDirection = this.character.otherDirection; // Umgekehrte Richtung des Charakters
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, throwDirection);
             this.throwableObjects.push(bottle);
-            this.character.numberOfBottles--; // Reduziere die Anzahl der Flaschen im Inventar um eins
+            this.character.numberOfBottles--;
             this.statusBarBottle.reducePercentage();
         }
     }
+
+
+
 
     checkHitEnemy() {
         this.throwableObjects.forEach((bottle) => {
