@@ -16,7 +16,7 @@ class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        }, 1000 / 25);
+        }, 1000 / 20);
     }
 
     isAboveGround() {
@@ -46,7 +46,7 @@ class MovableObject extends DrawableObject {
             rectX = this.x;
             rectY = this.y;
             rectWidth = this.width;
-            rectHeight = this.height - 30;
+            rectHeight = this.height + 30;
         } else {
             rectX = this.x;
             rectY = this.y;
@@ -140,9 +140,7 @@ class MovableObject extends DrawableObject {
 
     splashBottle() {
         if (this.energy >= 0) {
-            clearInterval(this.rotationInterval); // Stoppe die Rotation
-            clearInterval(this.gravityInterval); // Stoppe die Gravitationsbewegung
-            this.playAnimation(this.IMAGES_SPLASH); // Spiele die Splash-Animation
+            this.playAnimation(this.IMAGES_SPLASH);
         }
     }
 
