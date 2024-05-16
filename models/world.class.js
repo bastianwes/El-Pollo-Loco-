@@ -11,6 +11,7 @@ class World {
     statusBarEndboss = new StatusBarEndboss();
     throwableObjects = [];
     throwBottle = false;
+    statusBarEndbossShown = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -116,8 +117,9 @@ class World {
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
-        if (this.character.x >= 1900) {
+        if (this.character.x >= 1950 || this.statusBarEndbossShown) {
             this.addToMap(this.statusBarEndboss);
+            this.statusBarEndbossShown = true;
         }
         this.ctx.translate(this.camera_x, 0);
 
@@ -125,6 +127,7 @@ class World {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.endboss);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.throwableObjects);
