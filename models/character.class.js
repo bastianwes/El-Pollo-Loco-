@@ -111,7 +111,7 @@ class Character extends MovableObject {
             }
 
             this.world.camera_x = -this.x + 100;
-        }, 1000 / 60);
+        }, 1500 / 60);
 
 
         let idleCount = 0;
@@ -133,7 +133,7 @@ class Character extends MovableObject {
             } else if (!this.world.keyboard.SPACE && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
                 this.playAnimation(this.IMAGES_IDLE);
                 idleCount++;
-                if (idleCount >= 50) {
+                if (idleCount >= 30) {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
                     if (this.sleep_sound.paused) { // Spielt den Sound nur ab, wenn er pausiert ist
                         this.sleep_sound.play();

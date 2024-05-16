@@ -35,7 +35,7 @@ class MovableObject extends DrawableObject {
         if (this instanceof Character) {
             rectX = this.x;
             rectY = this.y + 100;
-            rectWidth = this.width;
+            rectWidth = this.width - 20;
             rectHeight = this.offset_height;
         } else if (this instanceof Coin) {
             rectX = this.offsetX;
