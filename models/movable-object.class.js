@@ -62,6 +62,15 @@ class MovableObject extends DrawableObject {
 
 
     hit() {
+        this.energy -= 5;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    hitEndboss() {
         this.energy -= 20;
         if (this.energy < 0) {
             this.energy = 0;
@@ -145,12 +154,11 @@ class MovableObject extends DrawableObject {
     }
 
     splashBottleEndboss() {
-        if (this.energy >= 0 && this.energy <= 100) { // Überprüfen, ob energy im Bereich von 0 bis 100 liegt
+        if (this.energy >= 0 && this.energy <= 100) {
             this.playAnimation(this.IMAGES_SPLASH);
             this.glass_sound.play();
         }
     }
-
     playAnimation(images) {
         let i = this.currentImage % images.length; // let i = 7 % 6; =>  1, Rest 1
         let path = images[i];
