@@ -53,24 +53,32 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.x = 2500;
+        this.deadAnimationPlayed = false;
         this.animate();
     }
 
 
     animate() {
         setInterval(() => {
-            this.playAnimation(this.IMAGES_ALERT);
-        }, 200);
-
-        setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT)
+            if (!this.deadAnimationPlayed) {
+                if (this.isDead()) {
+                    this.playDeadAnimation();
+                } else if (this.isHurt()) {
+                    this.playAnimation(this.IMAGES_HURT);
+                } else {
+                    this.playAnimation(this.IMAGES_ALERT);
+                }
             }
-        }, 120);
-
+        }, 200);
     }
+
+    playDeadAnimation() {
+        this.deadAnimationPlayed = true;
+        let lastDeadImage = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
+        this.playAnimation([lastDeadImage], true);
+    }
+
+
 
 
 }

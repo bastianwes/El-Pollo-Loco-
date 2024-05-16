@@ -72,6 +72,7 @@ class World {
                 this.level.endboss.forEach((enemy) => {
                     if (bottle.isColliding(enemy)) {
                         enemy.hit(); // Führe die Hit-Funktion des Gegners aus
+                        this.statusBarEndboss.setPercentage(enemy.energy);
                         console.log("Gegner getroffen, Energie:", enemy.energy);
                         bottle.hasHit = true; // Setze das Flag, dass die Flasche Schaden verursacht hat
                     } else {
