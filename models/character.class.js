@@ -90,6 +90,7 @@ class Character extends MovableObject {
 
 
     animate() {
+        let idleCount = 0;
 
         setInterval(() => {
             this.walking_sound.pause();
@@ -107,6 +108,8 @@ class Character extends MovableObject {
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jumping_sound.play();
+                idleCount = 0;
+                this.sleep_sound.pause();
                 this.jump();
             }
 
@@ -114,7 +117,7 @@ class Character extends MovableObject {
         }, 1500 / 60);
 
 
-        let idleCount = 0;
+
 
         setInterval(() => {
             if (this.isDead()) {
@@ -126,10 +129,11 @@ class Character extends MovableObject {
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
                 idleCount = 0; // Zurücksetzen der idleCount bei Bewegung
-                if (!this.sleep_sound.paused) {
-                    this.sleep_sound.pause();
-                    this.sleep_sound.currentTime = 0; // Setzt den Sound zurück zum Anfang
-                }
+                this.sleep_sound.pause();
+            } else if (this.world.keyboard.D) {
+                this.playAnimation(this.IMAGES_IDLE);
+                idleCount = 0;
+                this.sleep_sound.pause();
             } else if (!this.world.keyboard.SPACE && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
                 this.playAnimation(this.IMAGES_IDLE);
                 idleCount++;
@@ -139,6 +143,11 @@ class Character extends MovableObject {
                         this.sleep_sound.play();
                     }
                 }
+            }
+
+            // Wenn die Animation IMAGES_LONG_IDLE abgespielt wird und die Tasten RIGHT oder LEFT gedrückt werden
+            if (this.currentAnimation === this.IMAGES_LONG_IDLE && (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)) {
+                idleCount = 0; // Setze idleCount zurück auf 0
             }
         }, 120);
     }
