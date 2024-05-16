@@ -12,6 +12,7 @@ class World {
     throwableObjects = [];
     throwBottle = false;
     statusBarEndbossShown = false;
+    endboss = new Endboss();
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -33,6 +34,7 @@ class World {
             this.checkCollisionsWithCoins();
             this.checkThrowObjects();
             this.checkHitEnemy();
+            this.checkHitEndboss();
         }, 200);
     }
 
@@ -55,12 +57,35 @@ class World {
             this.level.enemies.forEach((enemy, index) => {
                 if (bottle.isColliding(enemy)) {
                     enemy.applyDamageWithBottle();
-                    bottle.splashBottle(); // Aufruf der splashBottle() Funktion der Flasche
-                    this.level.enemies.splice(index, 1); // Entferne den Gegner aus der Liste
+                    bottle.splashBottle();
+                    this.level.enemies.splice(index, 1);
                 }
             });
         });
     }
+
+    checkHitEndboss() {
+        let newThrowableObjects = [];
+        this.throwableObjects.forEach((bottle) => {
+            // Überprüfe, ob die Flasche bereits Schaden verursacht hat
+            if (!bottle.hasHit) {
+                this.level.endboss.forEach((enemy) => {
+                    if (bottle.isColliding(enemy)) {
+                        enemy.hit(); // Führe die Hit-Funktion des Gegners aus
+                        console.log("Gegner getroffen, Energie:", enemy.energy);
+                        bottle.hasHit = true; // Setze das Flag, dass die Flasche Schaden verursacht hat
+                    } else {
+                        newThrowableObjects.push(bottle);
+                    }
+                });
+            } else {
+                newThrowableObjects.push(bottle);
+            }
+        });
+        this.throwableObjects = newThrowableObjects;
+    }
+
+
 
     checkCollisions() {
         this.level.enemies.forEach((enemy, index) => {
