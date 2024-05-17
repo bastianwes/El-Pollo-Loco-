@@ -58,7 +58,6 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
-
     animate() {
         setInterval(() => {
             if (!this.deadAnimationPlayed) {
@@ -68,7 +67,7 @@ class Endboss extends MovableObject {
                     this.playAnimation(this.IMAGES_HURT);
                 } else if (this.endBossHurt()) {
                     this.playAnimation(this.IMAGES_ATTACK);
-                    this.moveEndboss();
+                    this.moveRightAttack(); //HIER SOLLTE DER ENDBOSS ERKENNEN OB CHARACTER SICH RECHTS ODER LINKS BEFINDET?
                 } else {
                     this.playAnimation(this.IMAGES_ALERT);
                 }
@@ -83,20 +82,25 @@ class Endboss extends MovableObject {
         this.playAnimation([lastDeadImage], true);
     }
 
-
-    moveEndboss() {
-        // Hier die Logik für die Bewegung des Endgegners während des Angriffs einfügen
-        // Zum Beispiel:
-        if (this.isOnTheLeft()) {
-            this.moveRight();
-        } else {
-            this.moveLeftEndboss();
+    moveTowardsCharacter() {
+        if (this.character) {
+            if (this.character.x < this.x) {
+                this.moveLeftAttack();
+            } else {
+                this.moveRightAttack();
+            }
         }
     }
 
-    isOnTheLeft() {
-        // Überprüfe, ob der Endgegner sich auf der linken Seite des Bildschirms befindet
-        return this.x <= 0;
+
+    moveLeftAttack() {
+        this.otherDirection = false;
+        this.x -= 20;
+    }
+
+    moveRightAttack() {
+        this.otherDirection = true;
+        this.x += 20;
     }
 }
 
