@@ -148,11 +148,11 @@ class MovableObject extends DrawableObject {
         return this.energy;
     }
 
-    splashBottle() {
-        if (this.energy >= 0) {
-            this.playAnimation(this.IMAGES_SPLASH);
-        }
-    }
+    // splashBottle() {
+    //     if (this.energy >= 0) {
+    //         this.playAnimation(this.IMAGES_SPLASH);
+    //     }
+    // }
 
     splashBottleEndboss() {
         if (this.energy >= 0 && this.energy <= 100) {

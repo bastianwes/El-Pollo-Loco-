@@ -29,8 +29,12 @@ class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.throwDirection = throwLeft;
+        this.splashAnimationPlayed = false;
         this.throw();
+        this.animate();
     }
+
+
 
     throw() {
         this.speedY = 20;
@@ -48,6 +52,36 @@ class ThrowableObject extends MovableObject {
             }, 700 / 60);
         }
     }
+
+    splashBottle() {
+        if (!this.splashAnimationPlayed) {
+            this.splashAnimationPlayed = true;
+            this.stopRotation();
+            this.playSplashAnimation();
+        }
+    }
+
+    playSplashAnimation() {
+        this.playAnimation(this.IMAGES_SPLASH);
+        setTimeout(() => {
+            this.img.src = 'img/2_character_pepe/5_dead/D-57.png';
+        }, 1000);
+    }
+
+    stopRotation() {
+        clearInterval(this.rotationInterval);
+    }
+
+    animate() {
+        setInterval(() => {
+            if (!this.splashAnimationPlayed) {
+                if (this.isDead()) {
+                    this.playSplashAnimation();
+                }
+            }
+        }, 200);
+    }
+
 }
 
 
