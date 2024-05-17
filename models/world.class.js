@@ -12,7 +12,7 @@ class World {
     throwableObjects = [];
     throwBottle = false;
     statusBarEndbossShown = false;
-    endboss = new Endboss();
+    endboss = new Endboss(this.character);
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
