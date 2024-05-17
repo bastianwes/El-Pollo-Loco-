@@ -142,6 +142,10 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    endBossHurt() {
+        return this.energy < 100; // oder einen anderen geeigneten Schwellenwert verwenden
+    }
+
     applyDamageWithBottle() {
         this.energy -= 100;
         this.glass_sound.play();
@@ -167,6 +171,10 @@ class MovableObject extends DrawableObject {
 
     moveLeft() {
         this.x -= this.speed;
+    }
+
+    moveLeftEndboss() {
+        this.x -= 20;
     }
 
     jump() {

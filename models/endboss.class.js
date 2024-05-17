@@ -52,7 +52,8 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 2500;
+        this.x = 500;
+        this.speed = 0.5;
         this.deadAnimationPlayed = false;
         this.animate();
     }
@@ -65,11 +66,15 @@ class Endboss extends MovableObject {
                     this.playDeadAnimation();
                 } else if (this.isHurt()) {
                     this.playAnimation(this.IMAGES_HURT);
+                } else if (this.endBossHurt()) {
+                    this.playAnimation(this.IMAGES_ATTACK);
+                    this.moveEndboss();
                 } else {
                     this.playAnimation(this.IMAGES_ALERT);
                 }
             }
         }, 200);
+
     }
 
     playDeadAnimation() {
@@ -79,7 +84,23 @@ class Endboss extends MovableObject {
     }
 
 
+    moveEndboss() {
+        // Hier die Logik für die Bewegung des Endgegners während des Angriffs einfügen
+        // Zum Beispiel:
+        if (this.isOnTheLeft()) {
+            this.moveRight();
+        } else {
+            this.moveLeftEndboss();
+        }
+    }
 
-
+    isOnTheLeft() {
+        // Überprüfe, ob der Endgegner sich auf der linken Seite des Bildschirms befindet
+        return this.x <= 0;
+    }
 }
+
+
+
+
 
