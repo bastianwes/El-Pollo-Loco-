@@ -1,8 +1,10 @@
+
 class Endboss extends MovableObject {
 
     height = 400;
     width = 250;
     y = 55;
+
 
     IMAGES_ALERT = [
         './img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -58,22 +60,31 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
+    // animate() {
+    //     setInterval(() => {
+    //         if (!this.deadAnimationPlayed) {
+    //             if (this.isDead()) {
+    //                 this.playDeadAnimation();
+    //             } else if (this.isHurt()) {
+    //                 this.playAnimation(this.IMAGES_HURT);
+    //             } else if (this.endBossHurt()) {
+    //                 this.playAnimation(this.IMAGES_ATTACK);
+    //                 this.moveTowardsCharacter();//HIER SOLLTE DER ENDBOSS ERKENNEN OB CHARACTER SICH RECHTS ODER LINKS BEFINDET?
+    //             } else {
+    //                 this.playAnimation(this.IMAGES_ALERT);
+    //             }
+    //         }
+    //     }, 200);
+
+    // }
+
     animate() {
         setInterval(() => {
             if (!this.deadAnimationPlayed) {
-                if (this.isDead()) {
-                    this.playDeadAnimation();
-                } else if (this.isHurt()) {
-                    this.playAnimation(this.IMAGES_HURT);
-                } else if (this.endBossHurt()) {
-                    this.playAnimation(this.IMAGES_ATTACK);
-                    this.moveRightAttack(); //HIER SOLLTE DER ENDBOSS ERKENNEN OB CHARACTER SICH RECHTS ODER LINKS BEFINDET?
-                } else {
-                    this.playAnimation(this.IMAGES_ALERT);
-                }
+                console.log("Endboss X Coordinate: " + this.x);
+                console.log("Character X Coordinate: " + this.character.x);
             }
         }, 200);
-
     }
 
     playDeadAnimation() {
@@ -83,15 +94,12 @@ class Endboss extends MovableObject {
     }
 
     moveTowardsCharacter() {
-        if (this.character) {
-            if (this.character.x < this.x) {
-                this.moveLeftAttack();
-            } else {
-                this.moveRightAttack();
-            }
+        if (this.character.x < this.x) {
+            this.moveLeftAttack();
+        } else {
+            this.moveRightAttack();
         }
     }
-
 
     moveLeftAttack() {
         this.otherDirection = false;
