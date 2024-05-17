@@ -53,16 +53,30 @@ class World {
     }
 
     checkHitEnemy() {
+        let newThrowableObjects = [];
         this.throwableObjects.forEach((bottle) => {
-            this.level.enemies.forEach((enemy, index) => {
-                if (bottle.isColliding(enemy)) {
-                    enemy.applyDamageWithBottle();
-                    bottle.splashBottle();
-                    this.level.enemies.splice(index, 1);
+            // Überprüfe, ob die Flasche bereits Schaden verursacht hat
+            if (!bottle.hasHit) {
+                let hit = false;
+                this.level.enemies.forEach((enemy, index) => {
+                    if (!hit && bottle.isColliding(enemy)) {
+                        enemy.applyDamageWithBottle();
+                        bottle.splashBottle();
+                        this.level.enemies.splice(index, 1);
+                        bottle.hasHit = true; // Setze das Flag, dass die Flasche Schaden verursacht hat
+                        hit = true; // Stelle sicher, dass nur ein Treffer pro Flasche verarbeitet wird
+                    }
+                });
+                if (!hit) {
+                    newThrowableObjects.push(bottle);
                 }
-            });
+            } else {
+                newThrowableObjects.push(bottle);
+            }
         });
+        this.throwableObjects = newThrowableObjects;
     }
+
 
     checkHitEndboss() {
         let newThrowableObjects = [];

@@ -10,9 +10,10 @@ class MovableObject extends DrawableObject {
     bottle_sound = new Audio('audio/bottle.mp3');
     glass_sound = new Audio('audio/glass.mp3');
     coin_sound = new Audio('audio/coin.mp3');
+
     applyGravity() {
         this.gravityInterval = setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
+            if (!this.splashAnimationPlayed && (this.isAboveGround() || this.speedY > 0)) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
@@ -181,4 +182,5 @@ class MovableObject extends DrawableObject {
     isFalling() {
         return this.speedY < 0;
     }
+
 }

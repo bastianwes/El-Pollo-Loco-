@@ -32,8 +32,6 @@ class ThrowableObject extends MovableObject {
         this.throw();
     }
 
-
-
     throw() {
         this.speedY = 20;
         this.applyGravity();
@@ -50,5 +48,6 @@ class ThrowableObject extends MovableObject {
             }, 700 / 60);
         }
     }
-
 }
+
+
