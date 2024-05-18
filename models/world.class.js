@@ -12,12 +12,14 @@ class World {
     throwableObjects = [];
     throwBottle = false;
     statusBarEndbossShown = false;
-    endboss = new Endboss(this.character);
+    endboss;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        console.log("Character initialized:", this.character); // Check if character is initialized correctly
+        this.endboss = new Endboss(this.character);
         this.draw();
         this.setWorld();
         this.run();

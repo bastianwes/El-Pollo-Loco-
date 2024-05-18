@@ -1,6 +1,4 @@
-
 class Endboss extends MovableObject {
-
     height = 400;
     width = 250;
     y = 55;
@@ -45,46 +43,53 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/5_dead/G25.png',
         'img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
+    world;
 
     constructor(character) {
         super().loadImage(this.IMAGES_ALERT[0]);
+        console.log("Character passed to Endboss:", character); // Log the character object
+        this.character = character; // Assign the character instance
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.x = 500;
-        this.character = character;
         this.speed = 0.5;
         this.deadAnimationPlayed = false;
         this.animate();
+
+        this.checkCharacterCoordinates(); // Call the interval function here
     }
-
-    // animate() {
-    //     setInterval(() => {
-    //         if (!this.deadAnimationPlayed) {
-    //             if (this.isDead()) {
-    //                 this.playDeadAnimation();
-    //             } else if (this.isHurt()) {
-    //                 this.playAnimation(this.IMAGES_HURT);
-    //             } else if (this.endBossHurt()) {
-    //                 this.playAnimation(this.IMAGES_ATTACK);
-    //                 this.moveTowardsCharacter();//HIER SOLLTE DER ENDBOSS ERKENNEN OB CHARACTER SICH RECHTS ODER LINKS BEFINDET?
-    //             } else {
-    //                 this.playAnimation(this.IMAGES_ALERT);
-    //             }
-    //         }
-    //     }, 200);
-
-    // }
 
     animate() {
         setInterval(() => {
             if (!this.deadAnimationPlayed) {
-                console.log("Endboss X Coordinate: ", this.x);
-                console.log("Character X Coordinate: ", this.character.x);
+                if (this.isDead()) {
+                    this.playDeadAnimation();
+                } else if (this.isHurt()) {
+                    this.playAnimation(this.IMAGES_HURT);
+                } else if (this.endBossHurt()) {
+                    this.playAnimation(this.IMAGES_ATTACK);
+                    this.moveTowardsCharacter();//HIER SOLLTE DER ENDBOSS ERKENNEN OB CHARACTER SICH RECHTS ODER LINKS BEFINDET?
+                } else {
+                    this.playAnimation(this.IMAGES_ALERT);
+                }
             }
         }, 200);
+
+    }
+
+    checkCharacterCoordinates() {
+        if (!this.deadAnimationPlayed) {
+            if (this.character) { // Check if character is defined
+                console.log("Endboss X Coordinate: ", this.x);
+                console.log("Character X Coordinate: ", this.character.x);
+            } else {
+                console.error("Character is undefined!");
+            }
+            setTimeout(() => this.checkCharacterCoordinates(), 20000); // Recursively call the function every 200ms
+        }
     }
 
     playDeadAnimation() {
@@ -94,7 +99,7 @@ class Endboss extends MovableObject {
     }
 
     moveTowardsCharacter() {
-        if (this.character.x < this.x) {
+        if (this.character.x <= this.x) {
             this.moveLeftAttack();
         } else {
             this.moveRightAttack();
@@ -111,8 +116,3 @@ class Endboss extends MovableObject {
         this.x += 20;
     }
 }
-
-
-
-
-
