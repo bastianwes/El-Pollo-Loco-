@@ -181,5 +181,22 @@ class MovableObject extends DrawableObject {
         return this.speedY < 0;
     }
 
+    moveTowardsCharacter() {
+        if (world.character.x <= this.x) {
+            this.moveLeftAttack();
+        } else {
+            this.moveRightAttack();
+        }
+    }
+
+    moveLeftAttack() {
+        this.otherDirection = false;
+        this.x -= 20;
+    }
+
+    moveRightAttack() {
+        this.otherDirection = true;
+        this.x += 20;
+    }
 
 }
