@@ -5,7 +5,7 @@ class Character extends MovableObject {
     y = 70;
 
 
-    speed = 10;
+    speed = 4;
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -114,7 +114,7 @@ class Character extends MovableObject {
             }
 
             this.world.camera_x = -this.x + 100;
-        }, 2000 / 60);
+        }, 1000 / 60);
 
 
 
