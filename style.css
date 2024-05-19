@@ -8,6 +8,12 @@ body {
     font-family: 'zabras', Arial, Helvetica, sans-serif;
 }
 
+h1 {
+    font-size: 30px;
+    color: white;
+    letter-spacing: 8px;
+}
+
 @font-face {
     font-family: 'zabras';
     src: url('fonts/zabars.ttf') format('truetype');
@@ -17,76 +23,67 @@ canvas {
     background-color: black;
 }
 
+.canvas-container {
+    display: flex;
+    justify-content: center;
+}
+
 .start_screen {
     display: block;
     width: 720px;
     height: 480px;
     position: relative;
+
 }
 
-.navigation {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
+.navigation_container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-direction: row;
-    gap: 80px;
+    justify-content: center;
 }
 
-.introduction button,
-.help button,
-.start button {
-    font-size: 50px;
+.navigation_container button {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 10px;
     background-color: #FFCB00;
-    color: #A0220A;
+    color: white;
     border: none;
     border-radius: 10px;
+    font-family: Z;
     cursor: pointer;
-    transition: all 0.3s ease;
-    /* Apply transition to all properties */
     font-family: 'zabras', Arial, Helvetica, sans-serif;
-    transform-origin: center;
-    /* Set transform origin to center */
+    font-size: 60px;
 }
 
-@keyframes rotate-left {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    33% {
-        transform: rotate(-30deg);
-    }
-
-    66% {
-        transform: rotate(30deg);
-    }
-
-    100% {
-        transform: rotate(0deg);
-    }
+.navigation_container button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    color: #A0220A;
+    background-color: #FFCB00
 }
 
-.introduction button:hover,
-.help button:hover,
-.start button:hover {
-    background-color: #FFCB00;
-    animation: rotate-left 1s ease-in-out forwards,
-        rotate-right 1s ease-in-out 1s forwards,
-        rotate-left 1s ease-in-out 2s forwards;
-}
 
 @media only screen and (max-width: 720px) {
-    canvas {
-        width: 100%;
+
+    canvas,
+    .start_screen {
+        width: 90%;
     }
 }
 
 @media only screen and (max-height: 480px) {
-    canvas {
-        height: 100vh;
+
+    canvas,
+    .start_screen {
+        height: 90%;
     }
+}
+
+@media (max-width: 650px) {
+    .start_screen {
+        height: 90%;
+    }
+
+
 }

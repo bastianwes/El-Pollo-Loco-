@@ -32,6 +32,7 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
+            this.checkCollisionWithEndboss()
             this.checkCollisionsWithBottles();
             this.checkCollisionsWithCoins();
             this.checkThrowObjects();
@@ -39,6 +40,38 @@ class World {
             this.checkHitEndboss();
         }, 200);
     }
+
+    checkCollisions() {
+        this.level.enemies.forEach((enemy, index) => {
+            if (this.character.isColliding(enemy)) {
+                if (!this.character.isFalling() || !this.character.isAboveGround()) {
+                    this.character.hit();
+                    this.statusBarHealth.setPercentage(this.character.energy);
+                } else {
+                    this.character.jump();
+                    enemy.applyDamage();
+                    enemy.chickenDead(index);
+                    setTimeout(() => {
+                        if (this.level.enemies.includes(enemy)) {
+                            this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
+                        }
+                    }, 700);
+                }
+            }
+        });
+    }
+
+    checkCollisionWithEndboss() {
+        this.level.endboss.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                if (!this.character.isFalling() || !this.character.isAboveGround()) {
+                    this.character.hit();
+                    this.statusBarHealth.setPercentage(this.character.energy);
+                }
+            }
+        }); // Diese Klammer fehlte
+    }
+
 
     checkThrowObjects() {
         if (this.keyboard.D && this.character.numberOfBottles > 0 && !this.throwBottle) {
@@ -89,28 +122,6 @@ class World {
             }
         });
         this.throwableObjects = newThrowableObjects;
-    }
-
-
-
-    checkCollisions() {
-        this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isColliding(enemy)) {
-                if (!this.character.isFalling() || !this.character.isAboveGround()) {
-                    this.character.hit();
-                    this.statusBarHealth.setPercentage(this.character.energy);
-                } else {
-                    this.character.jump();
-                    enemy.applyDamage();
-                    enemy.chickenDead(index);
-                    setTimeout(() => {
-                        if (this.level.enemies.includes(enemy)) {
-                            this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
-                        }
-                    }, 700);
-                }
-            }
-        });
     }
 
     checkCollisionsWithBottles() {

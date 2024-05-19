@@ -199,4 +199,6 @@ class MovableObject extends DrawableObject {
         this.x += 20;
     }
 
+
+
 }
