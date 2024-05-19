@@ -156,6 +156,7 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
         // ------ Space for fixed objects ------
+        this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
@@ -167,7 +168,6 @@ class World {
 
 
         this.addToMap(this.character);
-        this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.endboss);
         this.addObjectsToMap(this.level.coins);
