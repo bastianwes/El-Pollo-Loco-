@@ -71,6 +71,45 @@ canvas {
     z-index: -10;
 }
 
+#btnLeft,
+#btnRight,
+#btnJump {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50%;
+    background-color: #FFBE3F;
+    color: black;
+    font-size: 22px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+#btnThrow {
+    display: inline-block;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 50%;
+    background-color: #FFBE3F;
+    color: black;
+    font-size: 21px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.panel {
+    display: flex;
+    max-width: 720px;
+    gap: 500px;
+    margin-top: 20px;
+}
+
+.panel-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+
 
 @media only screen and (max-width: 720px) {
 
