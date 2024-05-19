@@ -4,10 +4,10 @@ class Cloud extends MovableObject {
     width = 500;
 
 
-    constructor() {
-        super().loadImage('img/5_background/layers/4_clouds/1.png');
+    constructor(imagePath, x) {
+        super().loadImage(imagePath);
 
-        this.x = 700; // Zahl zwischen 0 und 500
+        this.x = x;
         this.animate();
     }
 

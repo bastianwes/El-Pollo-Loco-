@@ -6,6 +6,7 @@ body {
     backdrop-filter: blur(4px);
     margin: 0;
     font-family: 'zabras', Arial, Helvetica, sans-serif;
+    height: 100vh;
 }
 
 h1 {
@@ -29,7 +30,9 @@ canvas {
 }
 
 .start_screen {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 720px;
     height: 480px;
     position: relative;
@@ -43,11 +46,11 @@ canvas {
 
 .navigation_container button {
     position: absolute;
-    top: 25%;
+    top: 18%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 10px 10px;
-    background-color: #FFCB00;
+    background-color: #A0220A;
     color: white;
     border: none;
     border-radius: 10px;

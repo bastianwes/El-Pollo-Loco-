@@ -80,3 +80,7 @@ function startGame() {
     initLevel();
     init();
 }
+
+function lostGame() {
+
+}
