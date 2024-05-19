@@ -118,6 +118,5 @@ function startGame() {
     bindBtsTouchEvents();
 }
 
-function lostGame() {
 
-}
+

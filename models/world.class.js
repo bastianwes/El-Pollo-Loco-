@@ -18,7 +18,6 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        console.log("Character initialized:", this.character); // Check if character is initialized correctly
         this.endboss = new Endboss(this.character);
         this.draw();
         this.setWorld();
@@ -38,6 +37,8 @@ class World {
             this.checkThrowObjects();
             this.checkHitEnemy();
             this.checkHitEndboss();
+            this.gameOver();
+            this.wonTheGame();
         }, 200);
     }
 
@@ -110,6 +111,7 @@ class World {
                 this.level.endboss.forEach((enemy) => {
                     if (bottle.isColliding(enemy)) {
                         enemy.hitEndboss(); // Führe die Hit-Funktion des Gegners aus
+                        console.log("Endboss hit! Remaining energy:", enemy.energy);
                         bottle.splashBottleEndboss();
                         this.statusBarEndboss.setPercentage(enemy.energy);
                         bottle.hasHit = true; // Setze das Flag, dass die Flasche Schaden verursacht hat
@@ -218,4 +220,24 @@ class World {
     }
 
 
+    gameOver() {
+        let gameOver = false;
+        if (this.character.isDead()) {
+            gameOver = true;
+            console.log('you lost', gameOver)
+        } else {
+            console.log("you are still alive")
+        }
+    }
+
+    wonTheGame() {
+        let wonTheGame = false;
+        let endboss = this.level.endboss[0];
+        if (endboss.isDead()) {
+            wonTheGame = true;
+            console.log("you won the game", true);
+        } else {
+            console.log("endboss is still alive with energy:", endboss.energy);
+        }
+    }
 }
