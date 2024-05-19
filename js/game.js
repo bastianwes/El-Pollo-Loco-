@@ -69,3 +69,14 @@ window.addEventListener("keyup", (e) => {
         keyboard.D = false;
     }
 });
+
+function startGame() {
+    let startScreen = document.getElementById('navContainer');
+    let canvas = document.getElementById('canvas-container');
+
+    canvas.style.display = 'block';
+    startScreen.style.display = 'none';
+
+    initLevel();
+    init();
+}

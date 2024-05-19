@@ -30,16 +30,16 @@
     <script src="js/game.js"></script>
 </head>
 
-<body onload="init()">
+<body>
 
     <h1>EL POLLO LOCO</h1>
 
     <div>
-        <div class="navigation_container">
+        <div class="navigation_container" id="navContainer">
             <img class="start_screen" src="img/9_intro_outro_screens/start/startscreen_1.png">
             <button onclick="startGame()">Start</button>
         </div>
-        <div class="canvas-container" style="display: none;">
+        <div class="canvas-container" id="canvas-container" style="display: none;">
             <canvas id="canvas" width="720" height="480"></canvas>
         </div>
 
