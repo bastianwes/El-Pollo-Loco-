@@ -243,19 +243,22 @@ class World {
 
     gameOver() {
         if (this.character.isDead() && !this.lostSoundPlayed) {
-            this.gameOverFlag = true;
-            this.lost_sound.play();
             this.lostSoundPlayed = true;
+            setTimeout(() => {
+                this.gameOverFlag = true;
+                this.lost_sound.play();
+            }, 700);
         }
     }
-
 
     wonTheGame() {
         let endboss = this.level.endboss[0];
         if (endboss.isDead() && !this.winSoundPlayed) {
-            this.wonTheGameFlag = true;
-            this.win_sound.play();
-            this.winSoundPlayed = true; // Setze die Flag, dass der Sound bereits abgespielt wurde
+            this.winSoundPlayed = true;
+            setTimeout(() => {
+                this.wonTheGameFlag = true;
+                this.win_sound.play();
+            }, 700);
         }
     }
 }
