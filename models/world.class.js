@@ -78,7 +78,7 @@ class World {
                     this.statusBarHealth.setPercentage(this.character.energy);
                 }
             }
-        }); // Diese Klammer fehlte
+        });
     }
 
 
