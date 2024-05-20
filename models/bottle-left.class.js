@@ -1,6 +1,6 @@
 class BottleLeft extends DrawableObject {
 
-  y = 360;
+  y = 380;
   width = 60;
   height = 70;
 

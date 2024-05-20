@@ -110,7 +110,7 @@ function startGame() {
     let startScreen = document.getElementById('navContainer');
     let canvas = document.getElementById('canvas-container');
 
-    canvas.style.display = 'block';
+    canvas.style.display = 'flex';
     startScreen.style.display = 'none';
 
     initLevel();

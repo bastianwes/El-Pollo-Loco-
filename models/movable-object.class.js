@@ -10,6 +10,8 @@ class MovableObject extends DrawableObject {
     bottle_sound = new Audio('audio/bottle.mp3');
     glass_sound = new Audio('audio/glass.mp3');
     coin_sound = new Audio('audio/coin.mp3');
+    hurt_sound = new Audio('audio/hurt.mp3');
+    jumpOnEnemy_sound = new Audio('audio/jumpOnEnemy.mp3');
 
     applyGravity() {
         this.gravityInterval = setInterval(() => {
@@ -138,6 +140,7 @@ class MovableObject extends DrawableObject {
 
     chickenDead() {
         if (this.energy >= 0) {
+            this.jumpOnEnemy_sound.play();
             this.playAnimation(this.IMAGES_DEAD);
         }
     }

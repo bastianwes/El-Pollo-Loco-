@@ -13,6 +13,14 @@ class World {
     throwBottle = false;
     statusBarEndbossShown = false;
     endboss;
+    gameOverImage = new DrawableObject().loadSingleImage('img/9_intro_outro_screens/game_over/game over.png');
+    wonTheGameImage = new DrawableObject().loadSingleImage('img/9_intro_outro_screens/win/win_1.png');
+    gameOverFlag = false;
+    wonTheGameFlag = false;
+    lost_sound = new Audio('audio/lost.mp3');
+    win_sound = new Audio('audio/win.mp3');
+    lostSoundPlayed = false;
+    winSoundPlayed = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -90,13 +98,13 @@ class World {
 
     checkHitEnemy() {
         this.throwableObjects.forEach((bottle) => {
-            if (!bottle.hasHit) { // Überprüfe, ob die Flasche bereits getroffen hat
+            if (!bottle.hasHit) {
                 this.level.enemies.forEach((enemy, index) => {
                     if (bottle.isColliding(enemy)) {
                         enemy.applyDamageWithBottle();
                         bottle.splashBottle();
-                        bottle.hasHit = true; // Setze das Flag, dass die Flasche getroffen hat
-                        this.level.enemies.splice(index, 1); // Entferne den getroffenen Gegner aus dem Array
+                        bottle.hasHit = true;
+                        this.level.enemies.splice(index, 1);
                     }
                 });
             }
@@ -106,15 +114,13 @@ class World {
     checkHitEndboss() {
         let newThrowableObjects = [];
         this.throwableObjects.forEach((bottle) => {
-            // Überprüfe, ob die Flasche bereits Schaden verursacht hat
             if (!bottle.hasHit) {
                 this.level.endboss.forEach((enemy) => {
                     if (bottle.isColliding(enemy)) {
-                        enemy.hitEndboss(); // Führe die Hit-Funktion des Gegners aus
-                        console.log("Endboss hit! Remaining energy:", enemy.energy);
+                        enemy.hitEndboss();
                         bottle.splashBottleEndboss();
                         this.statusBarEndboss.setPercentage(enemy.energy);
-                        bottle.hasHit = true; // Setze das Flag, dass die Flasche Schaden verursacht hat
+                        bottle.hasHit = true;
                     } else {
                         newThrowableObjects.push(bottle);
                     }
@@ -151,10 +157,29 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        if (this.gameOverFlag) {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.ctx.drawImage(this.gameOverImage, 0, 0, this.canvas.width, this.canvas.height);
+            return;
+        }
+
+        if (this.wonTheGameFlag) {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.3)'; // Black with 10% opacity
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+            // Verkleinere das Bild um 30%
+            const newWidth = this.wonTheGameImage.width * 0.6;
+            const newHeight = this.wonTheGameImage.height * 0.6;
+            const centerX = this.canvas.width / 2 - newWidth / 2;
+            const centerY = this.canvas.height / 2 - newHeight / 2;
+
+            this.ctx.drawImage(this.wonTheGameImage, centerX, centerY, newWidth, newHeight);
+            return;
+        }
+
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
-
-
 
         this.ctx.translate(-this.camera_x, 0);
         // ------ Space for fixed objects ------
@@ -168,7 +193,6 @@ class World {
         }
         this.ctx.translate(this.camera_x, 0);
 
-
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.endboss);
@@ -176,11 +200,8 @@ class World {
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.throwableObjects);
 
-
         this.ctx.translate(-this.camera_x, 0);
 
-
-        // Draw() wird immer wieder aufgerufen
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
@@ -221,23 +242,20 @@ class World {
 
 
     gameOver() {
-        let gameOver = false;
-        if (this.character.isDead()) {
-            gameOver = true;
-            console.log('you lost', gameOver)
-        } else {
-            console.log("you are still alive")
+        if (this.character.isDead() && !this.lostSoundPlayed) {
+            this.gameOverFlag = true;
+            this.lost_sound.play();
+            this.lostSoundPlayed = true;
         }
     }
 
+
     wonTheGame() {
-        let wonTheGame = false;
         let endboss = this.level.endboss[0];
-        if (endboss.isDead()) {
-            wonTheGame = true;
-            console.log("you won the game", true);
-        } else {
-            console.log("endboss is still alive with energy:", endboss.energy);
+        if (endboss.isDead() && !this.winSoundPlayed) {
+            this.wonTheGameFlag = true;
+            this.win_sound.play();
+            this.winSoundPlayed = true; // Setze die Flag, dass der Sound bereits abgespielt wurde
         }
     }
 }
