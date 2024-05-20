@@ -45,12 +45,14 @@ class DrawableObject {
             ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'red';
-            ctx.rect(this.x + 20, this.y + 100, this.width - 40, this.offset_height);
+            ctx.rect(this.x + 20, this.y + 130, this.width - 50, this.offset_height);
+            ctx.stroke();
         } if (this instanceof Coin) {
             ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'red';
             ctx.rect(this.offsetX, this.offsetY, this.offset_width, this.offset_height);
+            ctx.stroke();
         } if (this instanceof Chicken || this instanceof SmallChicken) {
             ctx.beginPath();
             ctx.lineWidth = '1';
