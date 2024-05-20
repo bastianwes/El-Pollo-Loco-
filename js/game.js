@@ -119,4 +119,24 @@ function startGame() {
 }
 
 
+function muteSound() {
+    document.getElementById('sound').style.display = 'none';
+    document.getElementById('mute-sound').style.display = 'inline-block';
+}
 
+function playSound() {
+    document.getElementById('mute-sound').style.display = 'none';
+    document.getElementById('sound').style.display = 'inline-block';
+}
+
+function setFullscreen() {
+    let gameContainer = document.getElementById('game-screen');
+
+    if (!document.fullscreenElement) {
+        gameContainer.requestFullscreen().catch(err => {
+            alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+        });
+    } else {
+        document.exitFullscreen();
+    }
+}

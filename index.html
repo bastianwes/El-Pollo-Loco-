@@ -33,18 +33,25 @@
 
 <body>
 
-    <h1>EL POLLO LOCO</h1>
-
-    <div>
+    <div id="game-screen">
+        <h1>EL POLLO LOCO</h1>
         <div class="navigation_container" id="navContainer">
             <img class="start_screen" src="img/9_intro_outro_screens/start/startscreen_1.png">
             <button onclick="startGame()">Start</button>
         </div>
         <div class="canvas-container" id="canvas-container" style="display: none;">
-            <canvas id="canvas" width="720" height="480"></canvas>
+            <div class="full-screen">
+                <button id="mute-sound" onclick="playSound()" style="display: none;"><i
+                        class="fa-solid fa-volume-xmark"></i></button>
+                <button id="sound" onclick="muteSound()"><i class="fa-solid fa-volume-high"></i></button>
+                <button id="expand" onclick="setFullscreen()"> <i class="fa-solid fa-expand"></i></button>
+            </div>
+            <canvas id="canvas" width="720" height="480">
+            </canvas>
+
         </div>
     </div>
-    <div class="panel">
+    <!-- <div class="panel">
         <div class="panel-wrapper">
             <button id="btnLeft"> <i class="fa-solid fa-caret-left"></i> </button>
             <button id="btnRight"> <i class="fa-solid fa-caret-right"></i></button>
@@ -53,9 +60,6 @@
             <button id="btnJump"> <i class="fa-solid fa-caret-up"></i> </button>
             <button id="btnThrow"> <i class="fa-solid fa-wine-bottle"></i></button>
         </div>
-    </div>
-    <!-- <div class="game-over-container" id="game-over-container">
-        <img class="game-over" src="img/9_intro_outro_screens/game_over/game over.png">
     </div> -->
 
 

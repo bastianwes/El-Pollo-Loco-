@@ -27,6 +27,8 @@ canvas {
 .canvas-container {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    margin-left: 5px;
 }
 
 .start_screen {
@@ -36,7 +38,7 @@ canvas {
     width: 720px;
     height: 480px;
     position: relative;
-
+    border-radius: 20px;
 }
 
 .navigation_container {
@@ -46,25 +48,25 @@ canvas {
 
 .navigation_container button {
     position: absolute;
-    top: 18%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 10px 10px;
-    background-color: #A0220A;
+    padding: 1px 10px;
+    background-color: #FFCB00;
     color: white;
     border: none;
     border-radius: 10px;
-    font-family: Z;
+    margin-top: 15px;
     cursor: pointer;
     font-family: 'zabras', Arial, Helvetica, sans-serif;
     font-size: 60px;
 }
 
 .navigation_container button:hover {
-    transform: translate(-50%, -50%) scale(1.1);
-    color: #A0220A;
-    background-color: #FFCB00
+    transform: scale(1.1);
 }
+
+/* .full-screen {
+    display: flex;
+    justify-content: space-between;
+} */
 
 .cloud {
     position: relative;
@@ -83,6 +85,29 @@ canvas {
     font-size: 22px;
     font-weight: 400;
     cursor: pointer;
+}
+
+#expand,
+#sound,
+#mute-sound {
+    display: inline-block;
+    padding: 10px 10px;
+    border: 1px solid black;
+    border-radius: 50%;
+    background: transparent;
+    color: black;
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+    width: 45px;
+    position: relative;
+}
+
+#expand:hover,
+#sound:hover,
+#mute-sound:hover {
+    background-color: #FFCB00;
+    /* This line sets the background color to orange on hover */
 }
 
 #btnThrow {
@@ -110,20 +135,46 @@ canvas {
 }
 
 
+#game-screen {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.full-screen {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    gap: 20px;
+    top: 50px;
+}
+
+.side-bar {
+    width: 720px;
+}
+
 
 @media only screen and (max-width: 720px) {
 
-    canvas,
+    #canvas,
     .start_screen {
-        width: 90%;
+        width: 98%;
+        padding-right: 5px;
     }
 }
 
-@media only screen and (max-height: 480px) {
 
-    canvas,
-    .start_screen {
-        height: 90%;
+@media (max-width: 740px) {
+    .panel {
+        gap: 450px;
+    }
+}
+
+@media (max-width: 660px) {
+    .panel {
+        gap: 365px;
     }
 }
 
