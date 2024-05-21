@@ -28,9 +28,7 @@ class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.throwDirection = throwLeft;
-        this.splashAnimationPlayed = false;
         this.throw();
-        this.animate();
     }
 
 
@@ -53,32 +51,9 @@ class ThrowableObject extends MovableObject {
     }
 
     splashBottle() {
-        if (!this.splashAnimationPlayed) {
-            this.splashAnimationPlayed = true;
-            this.stopRotation();
-            this.playSplashAnimation();
-        }
-    }
-
-    playSplashAnimation() {
-        this.playAnimation(this.IMAGES_SPLASH);
-        setTimeout(() => {
-            this.img.src = 'img/2_character_pepe/5_dead/D-57.png';
-        }, 1000);
-    }
-
-    stopRotation() {
         clearInterval(this.rotationInterval);
-    }
-
-    animate() {
-        setInterval(() => {
-            if (!this.splashAnimationPlayed) {
-                if (this.isDead()) {
-                    this.playSplashAnimation();
-                }
-            }
-        }, 200);
+        this.loadImages(this.IMAGES_SPLASH);
+        this.playAnimation(this.IMAGES_SPLASH);
     }
 
 }

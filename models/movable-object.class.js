@@ -45,6 +45,11 @@ class MovableObject extends DrawableObject {
             rectY = this.y;
             rectWidth = this.width;
             rectHeight = this.height + 30;
+        } else if (this instanceof Endboss) {
+            rectX = this.x + 60;
+            rectY = this.y + 5;
+            rectWidth = this.offset_width;
+            rectHeight = this.offset_height;
         } else {
             rectX = this.x;
             rectY = this.y;
@@ -152,7 +157,6 @@ class MovableObject extends DrawableObject {
 
     splashBottleEndboss() {
         if (this.energy >= 0 && this.energy <= 100) {
-            this.playAnimation(this.IMAGES_SPLASH);
             sounds.glass_sound.play();
         }
     }

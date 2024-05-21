@@ -79,13 +79,12 @@ class World {
         });
     }
 
-
     checkThrowObjects() {
         if (this.keyboard.D && this.character.numberOfBottles > 0 && !this.throwBottle) {
             this.throwBottle = true;
             setTimeout(() => {
                 this.throwBottle = false;
-            }, 300);
+            }, 2000);
             let throwDirection = this.character.otherDirection; // Umgekehrte Richtung des Charakters
             let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 10, throwDirection);
             this.throwableObjects.push(bottle);
@@ -110,24 +109,19 @@ class World {
     }
 
     checkHitEndboss() {
-        let newThrowableObjects = [];
         this.throwableObjects.forEach((bottle) => {
             if (!bottle.hasHit) {
-                this.level.endboss.forEach((enemy) => {
-                    if (bottle.isColliding(enemy)) {
-                        enemy.hitEndboss();
-                        bottle.splashBottleEndboss();
-                        this.statusBarEndboss.setPercentage(enemy.energy);
+                this.level.endboss.forEach((endboss) => {
+                    if (bottle.isColliding(endboss)) {
+                        endboss.splashBottleEndboss();
+                        endboss.hitEndboss();
+                        bottle.splashBottle();
+                        this.statusBarEndboss.setPercentage(endboss.energy);
                         bottle.hasHit = true;
-                    } else {
-                        newThrowableObjects.push(bottle);
                     }
                 });
-            } else {
-                newThrowableObjects.push(bottle);
             }
         });
-        this.throwableObjects = newThrowableObjects;
     }
 
     checkCollisionsWithBottles() {
