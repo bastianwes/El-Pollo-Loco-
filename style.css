@@ -173,9 +173,8 @@ canvas {
 .restart {
     position: absolute;
     gap: 20px;
-    top: 50px;
     display: flex;
-    top: 430px;
+    top: 410px;
     transform: translate(180%, 280%);
 }
 

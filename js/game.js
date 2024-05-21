@@ -49,12 +49,15 @@ function toggleSound() {
     }
 }
 
+
 function init() {
     canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
+    keyboard = new Keyboard(); // Neue Tastatur-Instanz
+    world = new World(canvas, keyboard); // Neue Welt-Instanz
     sounds.game_sound.play();
     sounds.game_sound.volume = 0.3;
     sounds.game_sound.loop = true;
+    addKeyboardEventListeners(); // Event-Listener wieder hinzufügen
 }
 
 function bindBtsTouchEvents() {
@@ -99,63 +102,33 @@ function bindBtsTouchEvents() {
     });
 }
 
-window.addEventListener("keydown", (e) => {
-    if (e.keyCode == 39) {
-        keyboard.RIGHT = true;
-    }
+function addKeyboardEventListeners() {
+    window.addEventListener("keydown", keyDownHandler);
+    window.addEventListener("keyup", keyUpHandler);
+}
 
-    if (e.keyCode == 37) {
-        keyboard.LEFT = true;
-    }
+function keyDownHandler(e) {
+    if (e.keyCode == 39) keyboard.RIGHT = true;
+    if (e.keyCode == 37) keyboard.LEFT = true;
+    if (e.keyCode == 38) keyboard.UP = true;
+    if (e.keyCode == 40) keyboard.DOWN = true;
+    if (e.keyCode == 32) keyboard.SPACE = true;
+    if (e.keyCode == 68) keyboard.D = true;
+}
 
-    if (e.keyCode == 38) {
-        keyboard.UP = true;
-    }
-
-    if (e.keyCode == 40) {
-        keyboard.DOWN = true;
-    }
-
-    if (e.keyCode == 32) {
-        keyboard.SPACE = true;
-    }
-
-    if (e.keyCode == 68) {
-        keyboard.D = true;
-    }
-});
-
-window.addEventListener("keyup", (e) => {
-    if (e.keyCode == 39) {
-        keyboard.RIGHT = false;
-    }
-
-    if (e.keyCode == 37) {
-        keyboard.LEFT = false;
-    }
-
-    if (e.keyCode == 38) {
-        keyboard.UP = false;
-    }
-
-    if (e.keyCode == 40) {
-        keyboard.DOWN = false;
-    }
-
-    if (e.keyCode == 32) {
-        keyboard.SPACE = false;
-    }
-
-    if (e.keyCode == 68) {
-        keyboard.D = false;
-    }
-});
+function keyUpHandler(e) {
+    if (e.keyCode == 39) keyboard.RIGHT = false;
+    if (e.keyCode == 37) keyboard.LEFT = false;
+    if (e.keyCode == 38) keyboard.UP = false;
+    if (e.keyCode == 40) keyboard.DOWN = false;
+    if (e.keyCode == 32) keyboard.SPACE = false;
+    if (e.keyCode == 68) keyboard.D = false;
+}
 
 function startGame() {
     let startScreen = document.getElementById('navContainer');
     let canvas = document.getElementById('canvas-container');
     let playAgainButton = document.getElementById('play-again');
-
     canvas.style.display = 'flex';
     startScreen.style.display = 'none';
     playAgainButton.style.display = 'none';
@@ -171,7 +144,6 @@ function playAgain() {
 
 function setFullscreen() {
     let gameContainer = document.getElementById('game-screen');
-
     if (!document.fullscreenElement) {
         gameContainer.requestFullscreen().catch(err => {
             alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
@@ -180,3 +152,46 @@ function setFullscreen() {
         document.exitFullscreen();
     }
 }
+
+function resetAllSounds() {
+    for (let key in sounds) {
+        if (sounds.hasOwnProperty(key)) {
+            sounds[key].pause();
+            sounds[key].currentTime = 0;
+        }
+    }
+}
+
+function resetSoundButtons() {
+    let soundButton = document.getElementById('sound');
+    let muteSoundButton = document.getElementById('mute-sound');
+
+    // Sound-Button anzeigen und Mute-Sound-Button verstecken
+    soundButton.style.display = 'inline-block';
+    muteSoundButton.style.display = 'none';
+
+    // Alle Sounds wieder auf unmuted setzen
+    unmuteAllSounds();
+}
+
+function resetGame() {
+    window.removeEventListener("keydown", keyDownHandler);
+    window.removeEventListener("keyup", keyUpHandler);
+    let intervalID = window.setInterval(function () { }, 99999);
+    for (let i = 1; i < intervalID; i++) {
+        window.clearInterval(i);
+    }
+    let timeoutID = window.setTimeout(function () { }, 99999);
+    for (let i = 1; i < timeoutID; i++) {
+        window.clearTimeout(i);
+    }
+    resetAllSounds();
+    if (world) {
+        world.restoreSoundVolumes();
+        world = null;
+    }
+    startGame();
+    resetSoundButtons();
+}
+
+

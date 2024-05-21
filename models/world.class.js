@@ -258,8 +258,6 @@ class World {
         }
     }
 
-
-
     playSoundOnly(soundName) {
         for (let key in sounds) {
             if (sounds.hasOwnProperty(key) && key !== soundName) {
@@ -276,5 +274,13 @@ class World {
 
     playLostSoundOnly() {
         this.playSoundOnly('lost_sound');
+    }
+
+    restoreSoundVolumes() {
+        for (let key in sounds) {
+            if (sounds.hasOwnProperty(key) && sounds[key].mutedVolume !== undefined) {
+                sounds[key].volume = sounds[key].mutedVolume;
+            }
+        }
     }
 }
