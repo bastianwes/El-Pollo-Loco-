@@ -155,6 +155,29 @@ canvas {
     width: 720px;
 }
 
+#play-again {
+    padding: 10px 10px;
+    background-color: #FFCB00;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'zabras', Arial, Helvetica, sans-serif;
+    font-size: 40px;
+}
+
+#play-again:hover {
+    transform: scale(1.1);
+}
+
+.restart {
+    position: absolute;
+    gap: 20px;
+    top: 50px;
+    display: flex;
+    top: 430px;
+    transform: translate(180%, 280%);
+}
 
 @media only screen and (max-width: 720px) {
 
