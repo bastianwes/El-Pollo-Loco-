@@ -165,7 +165,7 @@ class World {
 
         if (this.wonTheGameFlag) {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.3)'; // Black with 10% opacity
+            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'; // Black with 10% opacity
             this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
             // Verkleinere das Bild um 30%

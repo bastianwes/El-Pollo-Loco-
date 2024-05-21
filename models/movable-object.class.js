@@ -23,7 +23,7 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if (this instanceof ThrowableObject) { // Throwable object should always fall
+        if (this instanceof ThrowableObject) {
             return true;
         } else {
             return this.y < 180;
@@ -140,7 +140,7 @@ class MovableObject extends DrawableObject {
 
     chickenDead() {
         if (this.energy >= 0) {
-            this.jumpOnEnemy_sound.play();
+            this.playJumpOnEnemySound();
             this.playAnimation(this.IMAGES_DEAD);
         }
     }
@@ -202,6 +202,11 @@ class MovableObject extends DrawableObject {
         this.x += 20;
     }
 
-
+    playJumpOnEnemySound() {
+        this.jumpOnEnemy_sound.pause();
+        this.jumpOnEnemy_sound.currentTime = 0;
+        this.jumpOnEnemy_sound.volume = 0.4;
+        this.jumpOnEnemy_sound.play();
+    }
 
 }
