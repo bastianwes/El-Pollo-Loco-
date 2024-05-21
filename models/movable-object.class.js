@@ -191,14 +191,15 @@ class MovableObject extends DrawableObject {
         }
     }
 
+
     moveLeftAttack() {
         this.otherDirection = false;
-        this.x -= 20;
+        this.x -= 30;
     }
 
     moveRightAttack() {
         this.otherDirection = true;
-        this.x += 20;
+        this.x += 30;
     }
 
 
