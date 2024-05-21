@@ -244,7 +244,8 @@ class World {
             this.lostSoundPlayed = true;
             setTimeout(() => {
                 this.gameOverFlag = true;
-                sounds.lost_sound.play();
+                // Spiel verloren, nur lost_sound abspielen
+                this.playSoundOnly('lost_sound');
             }, 700);
         }
     }
@@ -255,8 +256,26 @@ class World {
             this.winSoundPlayed = true;
             setTimeout(() => {
                 this.wonTheGameFlag = true;
-                sounds.win_sound.play();
+                this.playSoundOnly('win_sound');
             }, 700);
         }
+    }
+
+    playSoundOnly(soundName) {
+        for (let key in sounds) {
+            if (sounds.hasOwnProperty(key) && key !== soundName) {
+                sounds[key].mutedVolume = sounds[key].volume;
+                sounds[key].volume = 0;
+            }
+        }
+        sounds[soundName].play();
+    }
+
+    playWinSoundOnly() {
+        this.playSoundOnly('win_sound');
+    }
+
+    playLostSoundOnly() {
+        this.playSoundOnly('lost_sound');
     }
 }

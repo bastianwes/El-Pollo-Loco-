@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let defaultVolume = 0.6;
 let sounds = {
     jumpOnEnemy: new Audio('audio/jumpOnEnemy.mp3'),
     bottle_sound: new Audio('audio/bottle.mp3'),
@@ -13,7 +14,8 @@ let sounds = {
     lost_sound: new Audio('audio/lost.mp3'),
     win_sound: new Audio('audio/win.mp3'),
     angry_sound: new Audio('audio/angry-chicken.mp3'),
-    throw_sound: new Audio('audio/throw.mp3')
+    throw_sound: new Audio('audio/throw.mp3'),
+    game_sound: new Audio('audio/game.mp3')
 };
 
 function muteAllSounds() {
@@ -50,6 +52,9 @@ function toggleSound() {
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    sounds.game_sound.play();
+    sounds.game_sound.volume = 0.3;
+    sounds.game_sound.loop = true;
 }
 
 function bindBtsTouchEvents() {
