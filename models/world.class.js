@@ -240,9 +240,11 @@ class World {
                 this.gameOverFlag = true;
                 // Spiel verloren, nur lost_sound abspielen
                 this.playSoundOnly('lost_sound');
+                playAgain();
             }, 700);
         }
     }
+
 
     wonTheGame() {
         let endboss = this.level.endboss[0];
@@ -251,9 +253,12 @@ class World {
             setTimeout(() => {
                 this.wonTheGameFlag = true;
                 this.playSoundOnly('win_sound');
+                playAgain();
             }, 700);
         }
     }
+
+
 
     playSoundOnly(soundName) {
         for (let key in sounds) {

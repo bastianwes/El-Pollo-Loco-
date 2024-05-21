@@ -154,13 +154,19 @@ window.addEventListener("keyup", (e) => {
 function startGame() {
     let startScreen = document.getElementById('navContainer');
     let canvas = document.getElementById('canvas-container');
+    let playAgainButton = document.getElementById('play-again');
 
     canvas.style.display = 'flex';
     startScreen.style.display = 'none';
-
+    playAgainButton.style.display = 'none';
     initLevel();
     init();
     bindBtsTouchEvents();
+}
+
+function playAgain() {
+    let playAgainButton = document.getElementById('play-again');
+    playAgainButton.style.display = 'flex';
 }
 
 function setFullscreen() {
