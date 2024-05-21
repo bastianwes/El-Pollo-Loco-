@@ -70,10 +70,6 @@ class Character extends MovableObject {
     ];
 
     world;
-    walking_sound = new Audio('audio/running.mp3');
-    jumping_sound = new Audio('audio/jump.mp3');
-    sleep_sound = new Audio('audio/sleep.mp3');
-
 
 
     constructor() {
@@ -93,23 +89,23 @@ class Character extends MovableObject {
         let idleCount = 0;
 
         setInterval(() => {
-            this.walking_sound.pause();
+            sounds.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
                 this.otherDirection = false;
-                this.walking_sound.play();
+                sounds.walking_sound.play();
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
-                this.walking_sound.play();
+                sounds.walking_sound.play();
                 this.otherDirection = true;
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jumping_sound.play();
+                sounds.jumping_sound.play();
                 idleCount = 0;
-                this.sleep_sound.pause();
+                sounds.sleep_sound.pause();
                 this.jump();
             }
 
@@ -124,24 +120,24 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-                this.hurt_sound.play();
+                sounds.hurt_sound.play();
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
                 idleCount = 0; // Zurücksetzen der idleCount bei Bewegung
-                this.sleep_sound.pause();
+                sounds.sleep_sound.pause();
             } else if (this.world.keyboard.D) {
                 this.playAnimation(this.IMAGES_IDLE);
                 idleCount = 0;
-                this.sleep_sound.pause();
+                sounds.sleep_sound.pause();
             } else if (!this.world.keyboard.SPACE && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
                 this.playAnimation(this.IMAGES_IDLE);
                 idleCount++;
                 if (idleCount >= 30) {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
-                    if (this.sleep_sound.paused) { // Spielt den Sound nur ab, wenn er pausiert ist
-                        this.sleep_sound.play();
+                    if (sounds.sleep_sound.paused) { // Spielt den Sound nur ab, wenn er pausiert ist
+                        sounds.sleep_sound.play();
                     }
                 }
             }

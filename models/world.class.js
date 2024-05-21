@@ -17,8 +17,6 @@ class World {
     wonTheGameImage = new DrawableObject().loadSingleImage('img/9_intro_outro_screens/win/win_1.png');
     gameOverFlag = false;
     wonTheGameFlag = false;
-    lost_sound = new Audio('audio/lost.mp3');
-    win_sound = new Audio('audio/win.mp3');
     lostSoundPlayed = false;
     winSoundPlayed = false;
 
@@ -246,7 +244,7 @@ class World {
             this.lostSoundPlayed = true;
             setTimeout(() => {
                 this.gameOverFlag = true;
-                this.lost_sound.play();
+                sounds.lost_sound.play();
             }, 700);
         }
     }
@@ -257,7 +255,7 @@ class World {
             this.winSoundPlayed = true;
             setTimeout(() => {
                 this.wonTheGameFlag = true;
-                this.win_sound.play();
+                sounds.win_sound.play();
             }, 700);
         }
     }

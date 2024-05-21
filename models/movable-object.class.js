@@ -7,11 +7,6 @@ class MovableObject extends DrawableObject {
     numberOfBottles = 0;
     numberOfCoins = 0;
     lastHit = 0;
-    bottle_sound = new Audio('audio/bottle.mp3');
-    glass_sound = new Audio('audio/glass.mp3');
-    coin_sound = new Audio('audio/coin.mp3');
-    hurt_sound = new Audio('audio/hurt.mp3');
-    jumpOnEnemy_sound = new Audio('audio/jumpOnEnemy.mp3');
 
     applyGravity() {
         this.gravityInterval = setInterval(() => {
@@ -87,12 +82,12 @@ class MovableObject extends DrawableObject {
             this.numberOfBottles++;
 
             // Überprüfe, ob das vorherige Audio beendet ist
-            if (this.bottle_sound.ended || this.bottle_sound.paused) {
-                this.bottle_sound.play();
+            if (sounds.bottle_sound.ended || sounds.bottle_sound.paused) {
+                sounds.bottle_sound.play();
             } else {
                 // Wenn das vorherige Audio noch nicht beendet ist, starte es von Anfang an
-                this.bottle_sound.currentTime = 0;
-                this.bottle_sound.play();
+                sounds.bottle_sound.currentTime = 0;
+                sounds.bottle_sound.play();
             }
 
             return true;
@@ -105,11 +100,11 @@ class MovableObject extends DrawableObject {
     collectCoin() {
         if (this.numberOfCoins < 10) {
             this.numberOfCoins++;
-            if (this.coin_sound.ended || this.coin_sound.paused) {
-                this.coin_sound.play();
+            if (sounds.coin_sound.ended || sounds.coin_sound.paused) {
+                sounds.coin_sound.play();
             } else {
-                this.coin_sound.currentTime = 0;
-                this.coin_sound.play();
+                sounds.coin_sound.currentTime = 0;
+                sounds.coin_sound.play();
             }
             return true;
         } else {
@@ -134,7 +129,7 @@ class MovableObject extends DrawableObject {
 
     applyDamageWithBottle() {
         this.energy -= 100;
-        this.glass_sound.play();
+        sounds.glass_sound.play();
         return this.energy;
     }
 
@@ -151,14 +146,14 @@ class MovableObject extends DrawableObject {
 
     applyDamageWithBottle() {
         this.energy -= 100;
-        this.glass_sound.play();
+        sounds.glass_sound.play();
         return this.energy;
     }
 
     splashBottleEndboss() {
         if (this.energy >= 0 && this.energy <= 100) {
             this.playAnimation(this.IMAGES_SPLASH);
-            this.glass_sound.play();
+            sounds.glass_sound.play();
         }
     }
     playAnimation(images) {
@@ -203,10 +198,9 @@ class MovableObject extends DrawableObject {
     }
 
     playJumpOnEnemySound() {
-        this.jumpOnEnemy_sound.pause();
-        this.jumpOnEnemy_sound.currentTime = 0;
-        this.jumpOnEnemy_sound.volume = 0.4;
-        this.jumpOnEnemy_sound.play();
+        sounds.jumpOnEnemy.pause();
+        sounds.jumpOnEnemy.currentTime = 0;
+        sounds.jumpOnEnemy.volume = 0.4;
+        sounds.jumpOnEnemy.play();
     }
-
 }

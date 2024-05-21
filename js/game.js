@@ -1,6 +1,22 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let sounds = {
+    jumpOnEnemy: new Audio('audio/jumpOnEnemy.mp3'),
+    bottle_sound: new Audio('audio/bottle.mp3'),
+    glass_sound: new Audio('audio/glass.mp3'),
+    coin_sound: new Audio('audio/coin.mp3'),
+    hurt_sound: new Audio('audio/hurt.mp3'),
+    walking_sound: new Audio('audio/running.mp3'),
+    jumping_sound: new Audio('audio/jump.mp3'),
+    sleep_sound: new Audio('audio/sleep.mp3'),
+    lost_sound: new Audio('audio/lost.mp3'),
+    win_sound: new Audio('audio/win.mp3'),
+    angry_sound: new Audio('audio/angry-chicken.mp3'),
+    throw_sound: new Audio('audio/throw.mp3')
+};
+
+
 
 function init() {
     canvas = document.getElementById('canvas');

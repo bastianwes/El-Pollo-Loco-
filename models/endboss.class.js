@@ -47,7 +47,7 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/5_dead/G25.png',
         'img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
-    angry_sound = new Audio('audio/angry-chicken.mp3');
+
     world;
 
     constructor() {
@@ -73,7 +73,7 @@ class Endboss extends MovableObject {
                 } else if (this.endBossHurt()) {
                     this.playAnimation(this.IMAGES_ATTACK);
                     this.moveTowardsCharacter();
-                    this.angry_sound.play();
+                    sounds.angry_sound.play();
                 } else {
                     this.playAnimation(this.IMAGES_ALERT);
                 }
