@@ -16,7 +16,36 @@ let sounds = {
     throw_sound: new Audio('audio/throw.mp3')
 };
 
+function muteAllSounds() {
+    for (let key in sounds) {
+        if (sounds.hasOwnProperty(key)) {
+            sounds[key].volume = 0;
+        }
+    }
+}
 
+function unmuteAllSounds() {
+    for (let key in sounds) {
+        if (sounds.hasOwnProperty(key)) {
+            sounds[key].volume = 0.6;
+        }
+    }
+}
+
+function toggleSound() {
+    let soundButton = document.getElementById('sound');
+    let muteSoundButton = document.getElementById('mute-sound');
+
+    if (soundButton.style.display === 'none') {
+        soundButton.style.display = 'inline-block';
+        muteSoundButton.style.display = 'none';
+        unmuteAllSounds();
+    } else {
+        soundButton.style.display = 'none';
+        muteSoundButton.style.display = 'inline-block';
+        muteAllSounds();
+    }
+}
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -65,7 +94,6 @@ function bindBtsTouchEvents() {
     });
 }
 
-
 window.addEventListener("keydown", (e) => {
     if (e.keyCode == 39) {
         keyboard.RIGHT = true;
@@ -75,7 +103,6 @@ window.addEventListener("keydown", (e) => {
         keyboard.LEFT = true;
     }
 
-
     if (e.keyCode == 38) {
         keyboard.UP = true;
     }
@@ -83,7 +110,6 @@ window.addEventListener("keydown", (e) => {
     if (e.keyCode == 40) {
         keyboard.DOWN = true;
     }
-
 
     if (e.keyCode == 32) {
         keyboard.SPACE = true;
@@ -103,7 +129,6 @@ window.addEventListener("keyup", (e) => {
         keyboard.LEFT = false;
     }
 
-
     if (e.keyCode == 38) {
         keyboard.UP = false;
     }
@@ -111,7 +136,6 @@ window.addEventListener("keyup", (e) => {
     if (e.keyCode == 40) {
         keyboard.DOWN = false;
     }
-
 
     if (e.keyCode == 32) {
         keyboard.SPACE = false;
@@ -132,17 +156,6 @@ function startGame() {
     initLevel();
     init();
     bindBtsTouchEvents();
-}
-
-
-function muteSound() {
-    document.getElementById('sound').style.display = 'none';
-    document.getElementById('mute-sound').style.display = 'inline-block';
-}
-
-function playSound() {
-    document.getElementById('mute-sound').style.display = 'none';
-    document.getElementById('sound').style.display = 'inline-block';
 }
 
 function setFullscreen() {

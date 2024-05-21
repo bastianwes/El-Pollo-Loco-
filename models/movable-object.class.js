@@ -135,7 +135,7 @@ class MovableObject extends DrawableObject {
 
     chickenDead() {
         if (this.energy >= 0) {
-            this.playJumpOnEnemySound();
+            sounds.jumpOnEnemy.play();
             this.playAnimation(this.IMAGES_DEAD);
         }
     }
@@ -197,10 +197,5 @@ class MovableObject extends DrawableObject {
         this.x += 20;
     }
 
-    playJumpOnEnemySound() {
-        sounds.jumpOnEnemy.pause();
-        sounds.jumpOnEnemy.currentTime = 0;
-        sounds.jumpOnEnemy.volume = 0.4;
-        sounds.jumpOnEnemy.play();
-    }
+
 }

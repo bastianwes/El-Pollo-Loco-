@@ -42,9 +42,9 @@
         </div>
         <div class="canvas-container" id="canvas-container" style="display: none;">
             <div class="full-screen">
-                <button id="mute-sound" onclick="playSound()" style="display: none;"><i
+                <button id="mute-sound" onclick="toggleSound()" style="display: none;"><i
                         class="fa-solid fa-volume-xmark"></i></button>
-                <button id="sound" onclick="muteSound()"><i class="fa-solid fa-volume-high"></i></button>
+                <button id="sound" onclick="toggleSound()"><i class="fa-solid fa-volume-high"></i></button>
                 <button id="expand" onclick="setFullscreen()"> <i class="fa-solid fa-expand"></i></button>
             </div>
             <canvas id="canvas" width="720" height="480">
