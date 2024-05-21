@@ -195,3 +195,18 @@ function resetGame() {
 }
 
 
+function showControl() {
+    document.getElementById('control-popup').style.display = 'block';
+}
+
+function closeControl() {
+    document.getElementById('control-popup').style.display = 'none';
+}
+
+// Close the popup when clicking outside of it
+window.onclick = function (event) {
+    let popup = document.getElementById('control-popup');
+    if (event.target === popup) {
+        popup.style.display = 'none';
+    }
+}

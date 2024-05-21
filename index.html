@@ -45,6 +45,7 @@
                 <button id="mute-sound" onclick="toggleSound()" style="display: none;"><i
                         class="fa-solid fa-volume-xmark"></i></button>
                 <button id="sound" onclick="toggleSound()"><i class="fa-solid fa-volume-high"></i></button>
+                <button id="info" onclick="showControl()"><i class="fa-solid fa-question"></i></button>
                 <button id="expand" onclick="setFullscreen()"> <i class="fa-solid fa-expand"></i></button>
             </div>
             <div class="restart">
@@ -62,6 +63,16 @@
         <div class="panel-wrapper">
             <button id="btnJump"> <i class="fa-solid fa-caret-up"></i> </button>
             <button id="btnThrow"> <i class="fa-solid fa-wine-bottle"></i></button>
+        </div>
+    </div>
+    <div id="control-popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closeControl()">&times;</span>
+            <h2>GAME CONTROLS</h2>
+            <p>Arrow Right: Move to the right</p>
+            <p>Arrow Left: Move to the left</p>
+            <p>Space: Jump</p>
+            <p>Attack: D</p>
         </div>
     </div>
 

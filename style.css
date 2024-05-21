@@ -89,7 +89,8 @@ canvas {
 
 #expand,
 #sound,
-#mute-sound {
+#mute-sound,
+#info {
     display: inline-block;
     padding: 10px 10px;
     border: 1px solid black;
@@ -105,7 +106,8 @@ canvas {
 
 #expand:hover,
 #sound:hover,
-#mute-sound:hover {
+#mute-sound:hover,
+#info:hover {
     background-color: #FFCB00;
     /* This line sets the background color to orange on hover */
 }
@@ -206,4 +208,44 @@ canvas {
     }
 
 
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    font-size: 30px;
+}
+
+.popup-content {
+    background-color: #744d30;
+    /* Holzfarbe */
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    border-radius: 30px;
+    text-align: center;
+    color: black;
+    /* Weiße Schriftfarbe */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
