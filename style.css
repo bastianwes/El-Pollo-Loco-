@@ -328,7 +328,33 @@ canvas {
         background-color: beige;
         font-size: 22px;
     }
+}
 
+.impressum {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.impressum h2 {
+    font-size: 30px;
+    letter-spacing: 3px;
+}
+
+.impressum p {
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    font-size: 25px;
+    margin-top: 15px;
+}
+
+a:hover {
+    color: #744d30;
 }
 
 
