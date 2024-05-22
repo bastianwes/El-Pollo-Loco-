@@ -85,7 +85,7 @@ class World {
             setTimeout(() => {
                 this.throwBottle = false;
             }, 2000);
-            let throwDirection = this.character.otherDirection; // Umgekehrte Richtung des Charakters
+            let throwDirection = this.character.otherDirection;
             let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 10, throwDirection);
             this.throwableObjects.push(bottle);
             this.character.numberOfBottles--;
@@ -147,34 +147,48 @@ class World {
     }
 
     draw() {
+        this.clearCanvas();
+        if (this.handleGameOver()) return;
+        if (this.handleGameWon()) return;
+        this.ctx.translate(this.camera_x, 0);
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.ctx.translate(-this.camera_x, 0);
+        this.addFixedObjects();
+        this.ctx.translate(this.camera_x, 0);
+        this.addDynamicObjects();
+        this.ctx.translate(-this.camera_x, 0);
+        requestAnimationFrame(() => this.draw());
+    }
+
+    clearCanvas() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
 
+    handleGameOver() {
         if (this.gameOverFlag) {
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.clearCanvas();
             this.ctx.drawImage(this.gameOverImage, 0, 0, this.canvas.width, this.canvas.height);
-            return;
+            return true;
         }
+        return false;
+    }
 
+    handleGameWon() {
         if (this.wonTheGameFlag) {
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'; // Black with 10% opacity
+            this.clearCanvas();
+            this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
             this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-            // Verkleinere das Bild um 30%
             const newWidth = this.wonTheGameImage.width * 0.4;
             const newHeight = this.wonTheGameImage.height * 0.4;
             const centerX = this.canvas.width / 2 - newWidth / 2;
             const centerY = this.canvas.height / 2 - newHeight / 2;
-
             this.ctx.drawImage(this.wonTheGameImage, centerX, centerY, newWidth, newHeight);
-            return;
+            return true;
         }
+        return false;
+    }
 
-        this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToMap(this.level.backgroundObjects);
-
-        this.ctx.translate(-this.camera_x, 0);
-        // ------ Space for fixed objects ------
+    addFixedObjects() {
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoin);
@@ -183,21 +197,15 @@ class World {
             this.addToMap(this.statusBarEndboss);
             this.statusBarEndbossShown = true;
         }
-        this.ctx.translate(this.camera_x, 0);
+    }
 
+    addDynamicObjects() {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.endboss);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.throwableObjects);
-
-        this.ctx.translate(-this.camera_x, 0);
-
-        let self = this;
-        requestAnimationFrame(function () {
-            self.draw();
-        });
     }
 
     addObjectsToMap(objects) {
@@ -210,14 +218,11 @@ class World {
         if (mo.otherDirection) {
             this.flipImage(mo);
         }
-
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
-
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
-
     }
 
     flipImage(mo) {
@@ -232,19 +237,16 @@ class World {
         this.ctx.restore();
     }
 
-
     gameOver() {
         if (this.character.isDead() && !this.lostSoundPlayed) {
             this.lostSoundPlayed = true;
             setTimeout(() => {
                 this.gameOverFlag = true;
-                // Spiel verloren, nur lost_sound abspielen
                 this.playSoundOnly('lost_sound');
                 playAgain();
             }, 700);
         }
     }
-
 
     wonTheGame() {
         let endboss = this.level.endboss[0];

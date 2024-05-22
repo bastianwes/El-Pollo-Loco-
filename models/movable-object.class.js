@@ -1,4 +1,5 @@
 class MovableObject extends DrawableObject {
+
     speed = 0.20;
     otherDirection = false;
     speedY = 0;
@@ -25,42 +26,87 @@ class MovableObject extends DrawableObject {
         }
     }
 
-
-    // character.isColliding(chicken);
     isColliding(mo) {
-        let rectX, rectY, rectWidth, rectHeight;
+        const rect = this.getCollisionRectangle();
+        return rect.x + rect.width > mo.x &&
+            rect.y + rect.height > mo.y &&
+            rect.x < mo.x + mo.width &&
+            rect.y < mo.y + mo.height;
+    }
 
-        if (this instanceof Character) {
-            rectX = this.x;
-            rectY = this.y + 130;
-            rectWidth = this.width - 50;
-            rectHeight = this.offset_height;
-        } else if (this instanceof Coin) {
-            rectX = this.offsetX;
-            rectY = this.offsetY;
-            rectWidth = this.offset_width;
-            rectHeight = this.offset_height;
-        } else if (this instanceof Chicken || this instanceof SmallChicken) {
-            rectX = this.x;
-            rectY = this.y;
-            rectWidth = this.width;
-            rectHeight = this.height + 30;
-        } else if (this instanceof Endboss) {
-            rectX = this.x + 60;
-            rectY = this.y + 5;
-            rectWidth = this.offset_width;
-            rectHeight = this.offset_height;
+    getCollisionRectangle() {
+        if (this.isCharacter()) {
+            return this.getCharacterCollisionRect();
+        } else if (this.isCoin()) {
+            return this.getCoinCollisionRect();
+        } else if (this.isChicken()) {
+            return this.getChickenCollisionRect();
+        } else if (this.isEndboss()) {
+            return this.getEndbossCollisionRect();
         } else {
-            rectX = this.x;
-            rectY = this.y;
-            rectWidth = this.width;
-            rectHeight = this.height;
+            return this.getDefaultCollisionRect();
         }
+    }
 
-        return rectX + rectWidth > mo.x &&
-            rectY + rectHeight > mo.y &&
-            rectX < mo.x + mo.width &&
-            rectY < mo.y + mo.height;
+    isCharacter() {
+        return this instanceof Character;
+    }
+
+    isCoin() {
+        return this instanceof Coin;
+    }
+
+    isChicken() {
+        return this instanceof Chicken || this instanceof SmallChicken;
+    }
+
+    isEndboss() {
+        return this instanceof Endboss;
+    }
+
+    getCharacterCollisionRect() {
+        return {
+            x: this.x + 35,
+            y: this.y + 130,
+            width: this.width - 60,
+            height: this.offset_height
+        };
+    }
+
+    getCoinCollisionRect() {
+        return {
+            x: this.offsetX,
+            y: this.offsetY,
+            width: this.offset_width,
+            height: this.offset_height
+        };
+    }
+
+    getChickenCollisionRect() {
+        return {
+            x: this.x + 10,
+            y: this.y + 5,
+            width: this.width - 15,
+            height: this.height + 30
+        };
+    }
+
+    getEndbossCollisionRect() {
+        return {
+            x: this.x + 40,
+            y: this.y + 50,
+            width: this.width,
+            height: this.height
+        };
+    }
+
+    getDefaultCollisionRect() {
+        return {
+            x: this.x,
+            y: this.y,
+            width: this.width,
+            height: this.height
+        };
     }
 
 
@@ -85,22 +131,17 @@ class MovableObject extends DrawableObject {
     collectBottle() {
         if (this.numberOfBottles < 5) {
             this.numberOfBottles++;
-
-            // Überprüfe, ob das vorherige Audio beendet ist
             if (sounds.bottle_sound.ended || sounds.bottle_sound.paused) {
                 sounds.bottle_sound.play();
             } else {
-                // Wenn das vorherige Audio noch nicht beendet ist, starte es von Anfang an
                 sounds.bottle_sound.currentTime = 0;
                 sounds.bottle_sound.play();
             }
-
             return true;
         } else {
             return false;
         }
     }
-
 
     collectCoin() {
         if (this.numberOfCoins < 10) {
@@ -118,8 +159,8 @@ class MovableObject extends DrawableObject {
     }
 
     isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
-        timepassed = timepassed / 300; // Difference in s
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 300;
         return timepassed < 1;
     }
 
@@ -146,7 +187,7 @@ class MovableObject extends DrawableObject {
     }
 
     endBossHurt() {
-        return this.energy < 100; // oder einen anderen geeigneten Schwellenwert verwenden
+        return this.energy < 100;
     }
 
     applyDamageWithBottle() {
@@ -160,8 +201,9 @@ class MovableObject extends DrawableObject {
             sounds.glass_sound.play();
         }
     }
+
     playAnimation(images) {
-        let i = this.currentImage % images.length; // let i = 7 % 6; =>  1, Rest 1
+        let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
@@ -191,7 +233,6 @@ class MovableObject extends DrawableObject {
         }
     }
 
-
     moveLeftAttack() {
         this.otherDirection = false;
         this.x -= 30;
@@ -201,6 +242,4 @@ class MovableObject extends DrawableObject {
         this.otherDirection = true;
         this.x += 30;
     }
-
-
 }
