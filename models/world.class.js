@@ -1,3 +1,6 @@
+/**
+ * Represents the game world.
+ */
 class World {
     character = new Character();
     level = level1;
@@ -20,6 +23,11 @@ class World {
     lostSoundPlayed = false;
     winSoundPlayed = false;
 
+    /**
+    * Creates an instance of World.
+    * @param {HTMLCanvasElement} canvas - The canvas element.
+    * @param {Keyboard} keyboard - The keyboard input handler.
+    */
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -30,10 +38,16 @@ class World {
         this.run();
     }
 
+    /**
+    * Sets the world reference to the character object.
+    */
     setWorld() {
         this.character.world = this;
     }
 
+    /**
+     * Starts the game loop.
+     */
     run() {
         setInterval(() => {
             this.checkCollisions();
@@ -48,6 +62,9 @@ class World {
         }, 200);
     }
 
+    /**
+     * Checks collisions between the character and enemies.
+     */
     checkCollisions() {
         this.level.enemies.forEach((enemy, index) => {
             if (this.character.isColliding(enemy)) {
@@ -68,6 +85,9 @@ class World {
         });
     }
 
+    /**
+     * Checks collision between the character and endboss.
+     */
     checkCollisionWithEndboss() {
         this.level.endboss.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
@@ -79,6 +99,9 @@ class World {
         });
     }
 
+    /**
+     * Checks if the character can throw objects.
+     */
     checkThrowObjects() {
         if (this.keyboard.D && this.character.numberOfBottles > 0 && !this.throwBottle) {
             this.throwBottle = true;
@@ -93,6 +116,9 @@ class World {
         }
     }
 
+    /**
+     * Checks if throwable objects hit enemies.
+     */
     checkHitEnemy() {
         this.throwableObjects.forEach((bottle) => {
             if (!bottle.hasHit) {
@@ -108,6 +134,9 @@ class World {
         });
     }
 
+    /**
+     * Checks if throwable objects hit the endboss.
+     */
     checkHitEndboss() {
         this.throwableObjects.forEach((bottle) => {
             if (!bottle.hasHit) {
@@ -124,6 +153,9 @@ class World {
         });
     }
 
+    /**
+     * Checks collisions between the character and bottles.
+     */
     checkCollisionsWithBottles() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
@@ -135,6 +167,9 @@ class World {
         });
     }
 
+    /**
+ * Checks collisions between the character and coins.
+ */
     checkCollisionsWithCoins() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
@@ -146,6 +181,9 @@ class World {
         });
     }
 
+    /**
+     * Draws the game world.
+     */
     draw() {
         this.clearCanvas();
         if (this.handleGameOver()) return;
@@ -160,10 +198,17 @@ class World {
         requestAnimationFrame(() => this.draw());
     }
 
+    /**
+     * Clears the canvas.
+     */
     clearCanvas() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
+    /**
+     * Handles the game over state.
+     * @returns {boolean} - Whether the game over state is handled.
+     */
     handleGameOver() {
         if (this.gameOverFlag) {
             this.clearCanvas();
@@ -173,6 +218,10 @@ class World {
         return false;
     }
 
+    /**
+     * Handles the game won state.
+     * @returns {boolean} - Whether the game won state is handled.
+     */
     handleGameWon() {
         if (this.wonTheGameFlag) {
             this.clearCanvas();
@@ -188,6 +237,9 @@ class World {
         return false;
     }
 
+    /**
+     * Adds fixed objects to the map.
+     */
     addFixedObjects() {
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.statusBarHealth);
@@ -199,6 +251,9 @@ class World {
         }
     }
 
+    /**
+     * Adds dynamic objects to the map.
+     */
     addDynamicObjects() {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
@@ -208,12 +263,20 @@ class World {
         this.addObjectsToMap(this.throwableObjects);
     }
 
+    /**
+     * Adds multiple objects to the map.
+     * @param {DrawableObject[]} objects - The objects to add.
+     */
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o);
         });
     }
 
+    /**
+     * Adds a single object to the map.
+     * @param {DrawableObject} mo - The object to add.
+     */
     addToMap(mo) {
         if (mo.otherDirection) {
             this.flipImage(mo);
@@ -225,6 +288,10 @@ class World {
         }
     }
 
+    /**
+     * Flips the image horizontally.
+     * @param {DrawableObject} mo - The object whose image to flip.
+     */
     flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -232,11 +299,18 @@ class World {
         mo.x = mo.x * -1;
     }
 
+    /**
+     * Flips the image back to its original orientation.
+     * @param {DrawableObject} mo - The object whose image to flip back.
+     */
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
 
+    /**
+     * Handles the game over state.
+     */
     gameOver() {
         if (this.character.isDead() && !this.lostSoundPlayed) {
             this.lostSoundPlayed = true;
@@ -248,6 +322,9 @@ class World {
         }
     }
 
+    /**
+     * Handles the game won state.
+     */
     wonTheGame() {
         let endboss = this.level.endboss[0];
         if (endboss.isDead() && !this.winSoundPlayed) {
@@ -260,6 +337,10 @@ class World {
         }
     }
 
+    /**
+     * Plays the specified sound while muting all other sounds.
+     * @param {string} soundName - The name of the sound to play.
+     */
     playSoundOnly(soundName) {
         for (let key in sounds) {
             if (sounds.hasOwnProperty(key) && key !== soundName) {
@@ -270,14 +351,23 @@ class World {
         sounds[soundName].play();
     }
 
+    /**
+     * Plays the win sound only.
+     */
     playWinSoundOnly() {
         this.playSoundOnly('win_sound');
     }
 
+    /**
+     * Plays the lost sound only.
+     */
     playLostSoundOnly() {
         this.playSoundOnly('lost_sound');
     }
 
+    /**
+     * Restores the volumes of all sounds.
+     */
     restoreSoundVolumes() {
         for (let key in sounds) {
             if (sounds.hasOwnProperty(key) && sounds[key].mutedVolume !== undefined) {

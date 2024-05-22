@@ -1,11 +1,15 @@
+/**
+ * Represents the main character in the game, which is a type of MovableObject.
+ * @extends {MovableObject}
+ */
 class Character extends MovableObject {
 
     height = 250;
     offset_height = 130;
     y = 70;
     world;
-
     speed = 4;
+
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -41,7 +45,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/4_hurt/H-41.png',
         'img/2_character_pepe/4_hurt/H-42.png',
         'img/2_character_pepe/4_hurt/H-43.png'
-    ]
+    ];
 
     IMAGES_IDLE = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -69,6 +73,9 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/long_idle/I-20.png'
     ];
 
+    /**
+     * Creates an instance of Character.
+     */
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -82,6 +89,9 @@ class Character extends MovableObject {
         this.idleCount = 0;
     }
 
+    /**
+     * Animates the character's movements and animations.
+     */
     animate() {
         setInterval(() => {
             sounds.walking_sound.pause();
@@ -94,6 +104,9 @@ class Character extends MovableObject {
         }, 120);
     }
 
+    /**
+     * Handles the character's movement based on keyboard input.
+     */
     handleMovement() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
@@ -115,10 +128,16 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Updates the camera position based on the character's x-coordinate.
+     */
     updateCamera() {
         this.world.camera_x = -this.x + 100;
     }
 
+    /**
+     * Handles the character's animations based on its state.
+     */
     handleAnimations() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
@@ -139,6 +158,9 @@ class Character extends MovableObject {
         this.resetLongIdleCount();
     }
 
+    /**
+     * Handles the character's idle animations.
+     */
     handleIdleAnimation() {
         if (!this.world.keyboard.SPACE && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
             this.playAnimation(this.IMAGES_IDLE);
@@ -152,11 +174,17 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Resets the idle count and pauses the sleep sound.
+     */
     resetIdleCount() {
         this.idleCount = 0;
         sounds.sleep_sound.pause();
     }
 
+    /**
+     * Resets the long idle count if the character starts moving.
+     */
     resetLongIdleCount() {
         if (this.currentAnimation === this.IMAGES_LONG_IDLE &&
             (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)) {
@@ -164,7 +192,31 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Makes the character jump by setting a vertical speed.
+     */
     jump() {
         this.speedY = 24;
     }
+
+    /**
+ * Collects a coin if the character has not reached the maximum number of coins.
+ * Plays a sound when a coin is collected.
+ * @returns {boolean} True if the coin is collected successfully, false if the maximum number of coins is reached.
+ */
+    collectCoin() {
+        if (this.numberOfCoins < 10) {
+            this.numberOfCoins++;
+            if (sounds.coin_sound.ended || sounds.coin_sound.paused) {
+                sounds.coin_sound.play();
+            } else {
+                sounds.coin_sound.currentTime = 0;
+                sounds.coin_sound.play();
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

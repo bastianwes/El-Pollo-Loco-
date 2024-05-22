@@ -1,3 +1,7 @@
+/**
+ * Represents a coin in the game, which is a type of MovableObject.
+ * @extends {MovableObject}
+ */
 class Coin extends MovableObject {
 
     IMAGES_COIN = [
@@ -5,6 +9,9 @@ class Coin extends MovableObject {
         'img/8_coin/coin_2.png'
     ];
 
+    /**
+     * Creates an instance of Coin.
+     */
     constructor() {
         super().loadImage(this.IMAGES_COIN[0]);
         this.loadImages(this.IMAGES_COIN);
@@ -19,6 +26,9 @@ class Coin extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Animates the coin's appearance, cycling through the coin images.
+     */
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_COIN);

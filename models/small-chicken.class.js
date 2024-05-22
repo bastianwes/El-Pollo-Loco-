@@ -1,19 +1,29 @@
+/**
+ * Represents a small chicken object that extends a movable object.
+ * @extends MovableObject
+ */
 class SmallChicken extends MovableObject {
 
     height = 55;
     width = 70
     y = 360
 
+    /** @type {string[]} Array of image paths for the walking animation of the small chicken. */
     IMAGES_WALKING = [
         'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
         'img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
         'img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
     ];
 
+    /** @type {string[]} Array of image paths for the dead animation of the small chicken. */
     IMAGES_DEAD = [
         'img/3_enemies_chicken/chicken_small/2_dead/dead.png'
     ];
 
+    /**
+     * Constructs a new SmallChicken object.
+     * Loads initial images, sets initial position and speed, and initiates animation.
+     */
     constructor() {
         super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -23,6 +33,10 @@ class SmallChicken extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Initiates animation for the small chicken.
+     * Moves the chicken left periodically and plays walking animation.
+     */
     animate() {
         setInterval(() => {
             if (!this.isDead()) {

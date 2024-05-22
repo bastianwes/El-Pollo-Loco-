@@ -1,3 +1,7 @@
+/**
+ * Represents a background object in the game, which is a type of MovableObject.
+ * @extends {MovableObject}
+ */
 class BackgroundObject extends MovableObject {
     width = 720;
     height = 480;

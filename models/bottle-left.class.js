@@ -1,3 +1,7 @@
+/**
+ * Represents a bottle object positioned on the left side of the game, which is a type of DrawableObject.
+ * @extends {DrawableObject}
+ */
 class BottleLeft extends DrawableObject {
 
     y = 380;

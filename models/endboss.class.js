@@ -1,3 +1,7 @@
+/**
+ * Represents an end boss in the game, which is a type of MovableObject.
+ * @extends {MovableObject}
+ */
 class Endboss extends MovableObject {
 
     height = 400;
@@ -49,6 +53,9 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
 
+    /**
+     * Creates an instance of Endboss.
+     */
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_ALERT);
@@ -62,6 +69,9 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Animates the end boss based on its state.
+     */
     animate() {
         setInterval(() => {
             if (!this.deadAnimationPlayed) {
@@ -80,6 +90,9 @@ class Endboss extends MovableObject {
         }, 200);
     }
 
+    /**
+     * Plays the dead animation of the end boss.
+     */
     playDeadAnimation() {
         this.deadAnimationPlayed = true;
         let lastDeadImage = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];

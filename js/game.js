@@ -18,6 +18,9 @@ let sounds = {
     game_sound: new Audio('audio/game.mp3')
 };
 
+/**
+ * Mutes all sounds by setting their volume to 0.
+ */
 function muteAllSounds() {
     for (let key in sounds) {
         if (sounds.hasOwnProperty(key)) {
@@ -26,18 +29,23 @@ function muteAllSounds() {
     }
 }
 
+/**
+ * Unmutes all sounds by setting their volume to the default volume.
+ */
 function unmuteAllSounds() {
     for (let key in sounds) {
         if (sounds.hasOwnProperty(key)) {
-            sounds[key].volume = 0.6;
+            sounds[key].volume = defaultVolume;
         }
     }
 }
 
+/**
+ * Toggles sound on or off by switching between mute and unmute states.
+ */
 function toggleSound() {
     let soundButton = document.getElementById('sound');
     let muteSoundButton = document.getElementById('mute-sound');
-
     if (soundButton.style.display === 'none') {
         soundButton.style.display = 'inline-block';
         muteSoundButton.style.display = 'none';
@@ -49,17 +57,22 @@ function toggleSound() {
     }
 }
 
-
+/**
+ * Initializes the game by setting up the canvas, keyboard, world, and playing the background game sound.
+ */
 function init() {
     canvas = document.getElementById('canvas');
-    keyboard = new Keyboard(); // Neue Tastatur-Instanz
-    world = new World(canvas, keyboard); // Neue Welt-Instanz
+    keyboard = new Keyboard();
+    world = new World(canvas, keyboard);
     sounds.game_sound.play();
     sounds.game_sound.volume = 0.3;
     sounds.game_sound.loop = true;
-    addKeyboardEventListeners(); // Event-Listener wieder hinzufügen
+    addKeyboardEventListeners();
 }
 
+/**
+ * Binds touch events to the game control buttons for mobile devices.
+ */
 function bindBtsTouchEvents() {
     document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
         e.preventDefault();
@@ -102,11 +115,18 @@ function bindBtsTouchEvents() {
     });
 }
 
+/**
+ * Adds keyboard event listeners to handle keydown and keyup events.
+ */
 function addKeyboardEventListeners() {
     window.addEventListener("keydown", keyDownHandler);
     window.addEventListener("keyup", keyUpHandler);
 }
 
+/**
+ * Handles keydown events and updates the keyboard state accordingly.
+ * @param {KeyboardEvent} e - The keyboard event.
+ */
 function keyDownHandler(e) {
     if (e.keyCode == 39) keyboard.RIGHT = true;
     if (e.keyCode == 37) keyboard.LEFT = true;
@@ -116,6 +136,10 @@ function keyDownHandler(e) {
     if (e.keyCode == 68) keyboard.D = true;
 }
 
+/**
+ * Handles keyup events and updates the keyboard state accordingly.
+ * @param {KeyboardEvent} e - The keyboard event.
+ */
 function keyUpHandler(e) {
     if (e.keyCode == 39) keyboard.RIGHT = false;
     if (e.keyCode == 37) keyboard.LEFT = false;
@@ -125,6 +149,9 @@ function keyUpHandler(e) {
     if (e.keyCode == 68) keyboard.D = false;
 }
 
+/**
+ * Starts the game by displaying the canvas and initializing the game level.
+ */
 function startGame() {
     let startScreen = document.getElementById('navContainer');
     let canvas = document.getElementById('canvas-container');
@@ -139,11 +166,17 @@ function startGame() {
     bindBtsTouchEvents();
 }
 
+/**
+ * Displays the "Play Again" button.
+ */
 function playAgain() {
     let playAgainButton = document.getElementById('play-again');
     playAgainButton.style.display = 'flex';
 }
 
+/**
+ * Toggles the fullscreen mode for the game container.
+ */
 function setFullscreen() {
     let gameContainer = document.getElementById('game-screen');
     if (!document.fullscreenElement) {
@@ -155,6 +188,9 @@ function setFullscreen() {
     }
 }
 
+/**
+ * Resets all sounds by pausing them and setting their currentTime to 0.
+ */
 function resetAllSounds() {
     for (let key in sounds) {
         if (sounds.hasOwnProperty(key)) {
@@ -164,18 +200,20 @@ function resetAllSounds() {
     }
 }
 
+/**
+ * Resets the sound buttons to their initial state.
+ */
 function resetSoundButtons() {
     let soundButton = document.getElementById('sound');
     let muteSoundButton = document.getElementById('mute-sound');
-
-    // Sound-Button anzeigen und Mute-Sound-Button verstecken
     soundButton.style.display = 'inline-block';
     muteSoundButton.style.display = 'none';
-
-    // Alle Sounds wieder auf unmuted setzen
     unmuteAllSounds();
 }
 
+/**
+ * Resets the game by clearing all intervals, timeouts, sounds, and restarting the game.
+ */
 function resetGame() {
     window.removeEventListener("keydown", keyDownHandler);
     window.removeEventListener("keyup", keyUpHandler);
@@ -196,16 +234,24 @@ function resetGame() {
     resetSoundButtons();
 }
 
-
+/**
+ * Displays the control popup.
+ */
 function showControl() {
     document.getElementById('control-popup').style.display = 'block';
 }
 
+/**
+ * Closes the control popup.
+ */
 function closeControl() {
     document.getElementById('control-popup').style.display = 'none';
 }
 
-// Close the popup when clicking outside of it
+/**
+ * Hides the control popup if the user clicks outside of it.
+ * @param {MouseEvent} event - The mouse event.
+ */
 window.onclick = function (event) {
     let popup = document.getElementById('control-popup');
     if (event.target === popup) {
@@ -213,6 +259,9 @@ window.onclick = function (event) {
     }
 }
 
+/**
+ * Checks the screen width and displays a popup if the width is less than 600px.
+ */
 function checkScreenWidth() {
     var popup = document.getElementById('turn-device-popup');
     if (window.innerWidth < 600) {
@@ -222,8 +271,5 @@ function checkScreenWidth() {
     }
 }
 
-// Event Listener für die Überwachung der Bildschirmgröße
 window.addEventListener('resize', checkScreenWidth);
-
-// Überprüfen Sie die Bildschirmgröße beim Laden der Seite
 window.onload = checkScreenWidth;

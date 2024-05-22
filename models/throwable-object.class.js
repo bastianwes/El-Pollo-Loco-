@@ -1,3 +1,7 @@
+/**
+ * Represents a throwable object that extends a movable object.
+ * @extends MovableObject
+ */
 class ThrowableObject extends MovableObject {
 
     height = 60;
@@ -20,6 +24,12 @@ class ThrowableObject extends MovableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
     ];
 
+    /**
+     * Initializes the throwable object with its position and direction.
+     * @param {number} x - The x-coordinate position.
+     * @param {number} y - The y-coordinate position.
+     * @param {boolean} throwLeft - The direction of the throw (true for left, false for right).
+     */
     constructor(x, y, throwLeft) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
         this.loadImages(this.IMAGES_ROTATION);
@@ -30,6 +40,9 @@ class ThrowableObject extends MovableObject {
         this.throw();
     }
 
+    /**
+     * Initiates the throw action.
+     */
     throw() {
         this.speedY = 10;
         this.applyGravity();
@@ -47,11 +60,12 @@ class ThrowableObject extends MovableObject {
         }
     }
 
+    /**
+     * Initiates the splash action when the object hits the ground.
+     */
     splashBottle() {
         clearInterval(this.rotationInterval);
         this.loadImages(this.IMAGES_SPLASH);
         this.playAnimation(this.IMAGES_SPLASH);
     }
 }
-
-
