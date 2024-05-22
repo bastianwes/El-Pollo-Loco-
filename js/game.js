@@ -129,9 +129,11 @@ function startGame() {
     let startScreen = document.getElementById('navContainer');
     let canvas = document.getElementById('canvas-container');
     let playAgainButton = document.getElementById('play-again');
+    let panel = document.getElementById('panel');
     canvas.style.display = 'flex';
     startScreen.style.display = 'none';
     playAgainButton.style.display = 'none';
+    panel.style.display = 'flex';
     initLevel();
     init();
     bindBtsTouchEvents();
@@ -210,3 +212,18 @@ window.onclick = function (event) {
         popup.style.display = 'none';
     }
 }
+
+function checkScreenWidth() {
+    var popup = document.getElementById('turn-device-popup');
+    if (window.innerWidth < 600) {
+        popup.style.display = 'block';
+    } else {
+        popup.style.display = 'none';
+    }
+}
+
+// Event Listener für die Überwachung der Bildschirmgröße
+window.addEventListener('resize', checkScreenWidth);
+
+// Überprüfen Sie die Bildschirmgröße beim Laden der Seite
+window.onload = checkScreenWidth;

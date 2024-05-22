@@ -13,7 +13,7 @@ class World {
     throwBottle = false;
     statusBarEndbossShown = false;
     endboss;
-    gameOverImage = new DrawableObject().loadSingleImage('img/9_intro_outro_screens/game_over/game over.png');
+    gameOverImage = new DrawableObject().loadSingleImage('img/9_intro_outro_screens/game_over/game over!.png');
     wonTheGameImage = new DrawableObject().loadSingleImage('img/9_intro_outro_screens/win/win_1.png');
     gameOverFlag = false;
     wonTheGameFlag = false;
@@ -161,8 +161,8 @@ class World {
             this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
             // Verkleinere das Bild um 30%
-            const newWidth = this.wonTheGameImage.width * 0.6;
-            const newHeight = this.wonTheGameImage.height * 0.6;
+            const newWidth = this.wonTheGameImage.width * 0.4;
+            const newHeight = this.wonTheGameImage.height * 0.4;
             const centerX = this.canvas.width / 2 - newWidth / 2;
             const centerY = this.canvas.height / 2 - newHeight / 2;
 

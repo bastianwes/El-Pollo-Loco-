@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'zabras';
+    src: url('fonts/zabars.ttf') format('truetype');
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -10,14 +15,9 @@ body {
 }
 
 h1 {
-    font-size: 30px;
+    font-size: 40px;
     color: white;
     letter-spacing: 8px;
-}
-
-@font-face {
-    font-family: 'zabras';
-    src: url('fonts/zabars.ttf') format('truetype');
 }
 
 canvas {
@@ -29,6 +29,7 @@ canvas {
     justify-content: center;
     flex-direction: column;
     margin-left: 5px;
+    position: relative;
 }
 
 .start_screen {
@@ -125,14 +126,12 @@ canvas {
 }
 
 .panel {
-    display: flex;
-    max-width: 720px;
-    gap: 500px;
-    margin-top: 20px;
+    display: none;
+    margin-top: 10px;
 }
 
 .panel-wrapper {
-    display: flex;
+    display: none;
     gap: 10px;
 }
 
@@ -142,7 +141,6 @@ canvas {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
 }
 
 .full-screen {
@@ -174,40 +172,66 @@ canvas {
 
 .restart {
     position: absolute;
-    gap: 20px;
+    top: 32%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
-    top: 410px;
-    transform: translate(180%, 280%);
+    justify-content: center;
+    gap: 20px;
 }
 
-@media only screen and (max-width: 720px) {
-
-    #canvas,
-    .start_screen {
-        width: 98%;
-        padding-right: 5px;
-    }
+.popup-content {
+    background-color: #744d30;
+    /* Holzfarbe */
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    border-radius: 30px;
+    text-align: center;
+    color: white;
+    letter-spacing: 5px;
 }
 
-
-@media (max-width: 740px) {
-    .panel {
-        gap: 450px;
-    }
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
 
-@media (max-width: 660px) {
-    .panel {
-        gap: 365px;
-    }
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
 
-@media (max-width: 650px) {
-    .start_screen {
-        height: 90%;
-    }
+.turn-device-popup {
+    display: none;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    opacity: 90%;
+    border-radius: 10px;
+    background-color: #FFCB00;
 
+    z-index: 10;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+#turn-device-popup h2 {
+    text-align: center;
+    font-size: 30px;
+}
+
+.turn-device-popup .popup-content {
+    text-align: center;
 }
 
 .popup {
@@ -223,29 +247,379 @@ canvas {
     font-size: 30px;
 }
 
-.popup-content {
-    background-color: #744d30;
-    /* Holzfarbe */
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 30%;
-    border-radius: 30px;
-    text-align: center;
-    color: black;
-    /* Weiße Schriftfarbe */
+@media only screen and (max-width: 720px) {
+
+    #canvas,
+    .start_screen {
+        width: 99%;
+    }
 }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+@media (device-height: 768px) and (device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+    .panel {
+        width: 667px;
+        gap: 467px;
+        left: 166px;
+        position: absolute;
+        top: 548px;
+    }
+
+    .panel-wrapper {
+        display: flex;
+        width: 667px;
+    }
+
+    #btnLeft,
+    #btnRight,
+    #btnJump,
+    #btnThrow {
+        opacity: 40%;
+        background-color: beige;
+        font-size: 22px;
+    }
+
 }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+
+@media (device-height: 1180px) and (device-width: 820px) and (-webkit-min-device-pixel-ratio: 2) {
+    .panel {
+        width: 667px;
+        gap: 369px;
+        left: 60px;
+        position: absolute;
+        top: 550px;
+    }
+
+    .panel-wrapper {
+        display: flex;
+        width: 667px;
+    }
+
+    #btnLeft,
+    #btnRight,
+    #btnJump,
+    #btnThrow {
+        opacity: 40%;
+        background-color: beige;
+        font-size: 22px;
+    }
+
+}
+
+@media (device-height: 1366px) and (device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+    .panel {
+        width: 667px;
+        gap: 369px;
+        left: 150px;
+        position: absolute;
+        top: 550px;
+    }
+
+    .panel-wrapper {
+        display: flex;
+        width: 667px;
+    }
+
+    #btnLeft,
+    #btnRight,
+    #btnJump,
+    #btnThrow {
+        opacity: 40%;
+        background-color: beige;
+        font-size: 22px;
+    }
+
+}
+
+
+@media (device-height: 375px) and (device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+    .start_screen {
+        width: 667px;
+        height: 375px;
+        border-radius: 0px;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    #canvas {
+        width: 667px;
+        height: 375px;
+        border-radius: 0px;
+    }
+
+    .canvas-container {
+        margin-left: 0px;
+    }
+
+    .panel {
+        width: 667px;
+        gap: 454px;
+        position: absolute;
+        top: 360px;
+    }
+
+    .panel-wrapper {
+        display: flex;
+        width: 667px;
+    }
+
+    #btnLeft,
+    #btnRight,
+    #btnJump,
+    #btnThrow {
+        opacity: 40%;
+        background-color: beige;
+        font-size: 15px;
+    }
+
+}
+
+@media (device-height: 414px) and (device-width: 896px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+    .start_screen {
+        width: 896px;
+        height: 414px;
+        border-radius: 0px;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    #canvas,
+    #game-screen {
+        width: 896px;
+        height: 414px;
+        border-radius: 0px;
+    }
+
+    .canvas-container {
+        margin-left: 0px;
+    }
+
+    .panel {
+        width: 667px;
+        gap: 635px;
+        left: 15px;
+        position: absolute;
+        top: 360px;
+    }
+
+    .panel-wrapper {
+        display: flex;
+        width: 667px;
+    }
+
+    #btnLeft,
+    #btnRight,
+    #btnJump,
+    #btnThrow {
+        opacity: 40%;
+        background-color: beige;
+        font-size: 22px;
+    }
+}
+
+@media (device-height: 390px) and (device-width: 844px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+    .start_screen {
+        width: 844px;
+        height: 390px;
+        border-radius: 0px;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    #canvas,
+    #game-screen {
+        width: 844px;
+        height: 390px;
+        border-radius: 0px;
+    }
+
+    .canvas-container {
+        margin-left: 0px;
+    }
+
+    .panel {
+        width: 667px;
+        gap: 581px;
+        left: 15px;
+        position: absolute;
+        top: 347px;
+    }
+
+    .panel-wrapper {
+        display: flex;
+        width: 667px;
+    }
+
+    #btnLeft,
+    #btnRight,
+    #btnJump,
+    #btnThrow {
+        opacity: 40%;
+        background-color: beige;
+        font-size: 22px;
+    }
+}
+
+@media (device-height: 430px) and (device-width: 932px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+    .start_screen {
+        width: 932px;
+        height: 430px;
+        border-radius: 0px;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    #canvas,
+    #game-screen {
+        width: 932px;
+        height: 430px;
+        border-radius: 0px;
+    }
+
+    .canvas-container {
+        margin-left: 0px;
+    }
+
+    .panel {
+        width: 667px;
+        gap: 668px;
+        left: 15px;
+        position: absolute;
+        top: 388px;
+    }
+
+    .panel-wrapper {
+        display: flex;
+        width: 667px;
+    }
+
+    #btnLeft,
+    #btnRight,
+    #btnJump,
+    #btnThrow {
+        opacity: 40%;
+        background-color: beige;
+        font-size: 22px;
+    }
+}
+
+@media (device-height: 412px) and (device-width: 915px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+    .start_screen {
+        width: 915px;
+        height: 412px;
+        border-radius: 0px;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    #canvas,
+    #game-screen {
+        width: 915px;
+        height: 412px;
+        border-radius: 0px;
+    }
+
+    .canvas-container {
+        margin-left: 0px;
+    }
+
+    .panel {
+        width: 667px;
+        gap: 652px;
+        left: 15px;
+        position: absolute;
+        top: 370px;
+    }
+
+    .panel-wrapper {
+        display: flex;
+        width: 667px;
+    }
+
+    #btnLeft,
+    #btnRight,
+    #btnJump,
+    #btnThrow {
+        opacity: 40%;
+        background-color: beige;
+        font-size: 22px;
+    }
+}
+
+@media (device-height: 360px) and (device-width: 740px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+    .start_screen {
+        width: 740px;
+        height: 360px;
+        border-radius: 0px;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    #canvas,
+    #game-screen {
+        width: 740px;
+        height: 360px;
+        border-radius: 0px;
+    }
+
+    .canvas-container {
+        margin-left: 0px;
+    }
+
+    .panel {
+        width: 667px;
+        gap: 494px;
+        left: 15px;
+        position: absolute;
+        top: 318px;
+    }
+
+    .panel-wrapper {
+        display: flex;
+        width: 667px;
+    }
+
+    #btnLeft,
+    #btnRight,
+    #btnJump,
+    #btnThrow {
+        opacity: 40%;
+        background-color: beige;
+        font-size: 16px;
+    }
+}
+
+@media (device-height: 412px) and (device-width: 915px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+    .start_screen {
+        width: 915px;
+        height: 412px;
+        border-radius: 0px;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    #canvas,
+    #game-screen {
+        width: 915px;
+        height: 412px;
+        border-radius: 0px;
+    }
+
+    .canvas-container {
+        margin-left: 0px;
+    }
 }
