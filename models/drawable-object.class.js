@@ -110,6 +110,7 @@ class DrawableObject {
         ctx.lineWidth = '1';
         ctx.strokeStyle = 'blue';
         ctx.rect(this.x + 15, this.y, this.width - 30, this.height);
+        ctx.stroke();
     }
 
     /**
@@ -121,6 +122,7 @@ class DrawableObject {
         ctx.lineWidth = '1';
         ctx.strokeStyle = 'red';
         ctx.rect(this.x + 35, this.y + 130, this.width - 60, this.offset_height);
+        ctx.stroke();
     }
 
     /**
@@ -132,6 +134,7 @@ class DrawableObject {
         ctx.lineWidth = '1';
         ctx.strokeStyle = 'red';
         ctx.rect(this.offsetX, this.offsetY, this.offset_width, this.offset_height);
+        ctx.stroke();
     }
 
     /**
@@ -143,6 +146,7 @@ class DrawableObject {
         ctx.lineWidth = '1';
         ctx.strokeStyle = 'blue';
         ctx.rect(this.x + 10, this.y + 5, this.width - 15, this.height);
+        ctx.stroke();
     }
 
     /**
@@ -154,6 +158,7 @@ class DrawableObject {
         ctx.lineWidth = '1';
         ctx.strokeStyle = 'blue';
         ctx.rect(this.x + 40, this.y + 50, this.width, this.height - 80);
+        ctx.stroke();
     }
 
     /**
