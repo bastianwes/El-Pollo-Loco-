@@ -60,7 +60,7 @@ class World {
             this.checkHitEndboss();
             this.gameOver();
             this.wonTheGame();
-        }, 70);
+        }, 1000 / 60);
     }
 
     /**
@@ -80,7 +80,7 @@ class World {
                         if (this.level.enemies.includes(enemy)) {
                             this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
                         }
-                    }, 700);
+                    }, 300);
                 }
             }
         });

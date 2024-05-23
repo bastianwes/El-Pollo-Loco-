@@ -5,8 +5,8 @@ class MovableObject extends DrawableObject {
 
     speed = 0.20;
     otherDirection = false;
-    speedY = 0;
-    acceleration = 2.5;
+    speedY = 0.3;
+    acceleration = 1.4;
     energy = 100;
     numberOfBottles = 0;
     numberOfCoins = 0;
@@ -27,8 +27,11 @@ class MovableObject extends DrawableObject {
             if (!this.splashAnimationPlayed && (this.isAboveGround() || this.speedY > 0)) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+            } else {
+                this.y = 190;
+                this.speedY = 0;
             }
-        }, 1000 / 20);
+        }, 1000 / 60);
     }
 
     /**
@@ -61,10 +64,11 @@ class MovableObject extends DrawableObject {
          * Handles the hit event on the movable object.
          */
     hit() {
-        this.energy -= 5;
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
+        if (!this.isHurt()) {
+            this.energy -= 5;
+            if (this.energy < 0) {
+                this.energy = 0;
+            }
             this.lastHit = new Date().getTime();
         }
     }
@@ -124,9 +128,9 @@ class MovableObject extends DrawableObject {
      * @returns {boolean} - True if hurt, false otherwise.
      */
     isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit;
-        timepassed = timepassed / 300;
-        return timepassed < 1;
+        let timePassed = new Date().getTime() - this.lastHit;
+        timePassed = timePassed / 300;
+        return timePassed < 0.7;
     }
 
     /**
