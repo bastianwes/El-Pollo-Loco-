@@ -1,8 +1,8 @@
 /**
- * Represents the main character in the game, which is a type of MovableObject.
- * @extends {MovableObject}
- */
-class Character extends MovableObject {
+    * Collects a coin if the character has not reached the maximum number of coins.
+    * Plays a sound when a coin is collected.
+    * @returns {boolean} True if the coin is collected successfully, false if the maximum number of coins is reached.
+*/class Character extends MovableObject {
 
     height = 250;
     offset_height = 130;
@@ -45,7 +45,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/4_hurt/H-41.png',
         'img/2_character_pepe/4_hurt/H-42.png',
         'img/2_character_pepe/4_hurt/H-43.png'
-    ];
+    ]
 
     IMAGES_IDLE = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -73,11 +73,6 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/long_idle/I-20.png'
     ];
 
-    jumpInProgress = false; // Flag to track jump animation state
-
-    /**
-     * Creates an instance of Character.
-     */
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -91,9 +86,6 @@ class Character extends MovableObject {
         this.idleCount = 0;
     }
 
-    /**
-     * Animates the character's movements and animations.
-     */
     animate() {
         setInterval(() => {
             sounds.walking_sound.pause();
@@ -106,23 +98,16 @@ class Character extends MovableObject {
         }, 120);
     }
 
-    /**
-     * Handles the character's movement based on keyboard input.
-     */
     handleMovement() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
             this.otherDirection = false;
-            if (!this.isAboveGround()) {
-                sounds.walking_sound.play();
-            }
+            sounds.walking_sound.play();
         }
 
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
-            if (!this.isAboveGround()) {
-                sounds.walking_sound.play();
-            }
+            sounds.walking_sound.play();
             this.otherDirection = true;
         }
 
@@ -134,16 +119,10 @@ class Character extends MovableObject {
         }
     }
 
-    /**
-     * Updates the camera position based on the character's x-coordinate.
-     */
     updateCamera() {
         this.world.camera_x = -this.x + 100;
     }
 
-    /**
-     * Handles the character's animations based on its state.
-     */
     handleAnimations() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
@@ -151,30 +130,19 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_HURT);
             sounds.hurt_sound.play();
         } else if (this.isAboveGround()) {
-            if (!this.jumpInProgress) {
-                this.jumpInProgress = true; // Start the jump animation
-                this.playAnimationOnce(this.IMAGES_JUMPING);
-            }
+            this.playAnimation(this.IMAGES_JUMPING);
+        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.playAnimation(this.IMAGES_WALKING);
+            this.resetIdleCount();
+        } else if (this.world.keyboard.D) {
+            this.playAnimation(this.IMAGES_IDLE);
+            this.resetIdleCount();
         } else {
-            if (this.jumpInProgress) {
-                this.jumpInProgress = false; // Reset jump state when character lands
-            }
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.playAnimation(this.IMAGES_WALKING);
-                this.resetIdleCount();
-            } else if (this.world.keyboard.D) {
-                this.playAnimation(this.IMAGES_IDLE);
-                this.resetIdleCount();
-            } else {
-                this.handleIdleAnimation();
-            }
+            this.handleIdleAnimation();
         }
         this.resetLongIdleCount();
     }
 
-    /**
-     * Handles the character's idle animations.
-     */
     handleIdleAnimation() {
         if (!this.world.keyboard.SPACE && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
             this.playAnimation(this.IMAGES_IDLE);
@@ -188,17 +156,11 @@ class Character extends MovableObject {
         }
     }
 
-    /**
-     * Resets the idle count and pauses the sleep sound.
-     */
     resetIdleCount() {
         this.idleCount = 0;
         sounds.sleep_sound.pause();
     }
 
-    /**
-     * Resets the long idle count if the character starts moving.
-     */
     resetLongIdleCount() {
         if (this.currentAnimation === this.IMAGES_LONG_IDLE &&
             (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)) {
@@ -206,35 +168,10 @@ class Character extends MovableObject {
         }
     }
 
-    /**
-     * Makes the character jump by setting a vertical speed.
-     */
     jump() {
         this.speedY = 24;
     }
 
-    /**
-     * Plays an animation once through the array of image paths.
-     * @param {Array<string>} images - Array of image paths to play.
-     */
-    playAnimationOnce(images) {
-        this.currentAnimation = images;
-        this.currentImageIndex = 0;
-        this.animationInterval = setInterval(() => {
-            if (this.currentImageIndex < images.length) {
-                this.img = this.imageCache[images[this.currentImageIndex]];
-                this.currentImageIndex++;
-            } else {
-                clearInterval(this.animationInterval); // Stop the animation
-            }
-        }, 100);
-    }
-
-    /**
-     * Collects a coin if the character has not reached the maximum number of coins.
-     * Plays a sound when a coin is collected.
-     * @returns {boolean} True if the coin is collected successfully, false if the maximum number of coins is reached.
-     */
     collectCoin() {
         if (this.numberOfCoins < 10) {
             this.numberOfCoins++;
@@ -249,5 +186,4 @@ class Character extends MovableObject {
             return false;
         }
     }
-
 }

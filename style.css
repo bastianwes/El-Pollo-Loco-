@@ -350,10 +350,14 @@ canvas {
     }
 
     .panel {
-        width: 667px;
-        gap: 454px;
         position: absolute;
-        top: 360px;
+        align-items: center;
+        left: 0px;
+        right: 0;
+        bottom: 4%;
+        gap: 270px;
+        margin-left: 10%;
+        height: 50px;
     }
 
     .panel-wrapper {
@@ -368,6 +372,18 @@ canvas {
         opacity: 40%;
         background-color: beige;
         font-size: 15px;
+    }
+
+    .full-screen {
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+        top: 10%;
+        left: 0;
+        right: 0;
+        bottom: 90%;
+        gap: 20px;
     }
 
 }
@@ -395,11 +411,14 @@ canvas {
     }
 
     .panel {
-        width: 667px;
-        gap: 635px;
-        left: 15px;
         position: absolute;
-        top: 360px;
+        align-items: center;
+        left: 0px;
+        right: 0;
+        bottom: 4%;
+        gap: 380px;
+        margin-left: 10%;
+        height: 50px;
     }
 
     .panel-wrapper {
@@ -414,6 +433,18 @@ canvas {
         opacity: 40%;
         background-color: beige;
         font-size: 22px;
+    }
+
+    .full-screen {
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+        top: 10%;
+        left: 0;
+        right: 0;
+        bottom: 90%;
+        gap: 20px;
     }
 }
 
@@ -440,11 +471,14 @@ canvas {
     }
 
     .panel {
-        width: 667px;
-        gap: 581px;
-        left: 15px;
         position: absolute;
-        top: 347px;
+        align-items: center;
+        left: 0px;
+        right: 0;
+        bottom: 4%;
+        gap: 380px;
+        margin-left: 10%;
+        height: 50px;
     }
 
     .panel-wrapper {
@@ -459,6 +493,18 @@ canvas {
         opacity: 40%;
         background-color: beige;
         font-size: 22px;
+    }
+
+    .full-screen {
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+        top: 10%;
+        left: 0;
+        right: 0;
+        bottom: 90%;
+        gap: 20px;
     }
 }
 
@@ -485,11 +531,14 @@ canvas {
     }
 
     .panel {
-        width: 667px;
-        gap: 668px;
-        left: 15px;
         position: absolute;
-        top: 388px;
+        align-items: center;
+        left: 0px;
+        right: 0;
+        bottom: 4%;
+        gap: 380px;
+        margin-left: 10%;
+        height: 50px;
     }
 
     .panel-wrapper {
@@ -504,6 +553,18 @@ canvas {
         opacity: 40%;
         background-color: beige;
         font-size: 22px;
+    }
+
+    .full-screen {
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+        top: 10%;
+        left: 0;
+        right: 0;
+        bottom: 90%;
+        gap: 20px;
     }
 }
 
@@ -530,11 +591,14 @@ canvas {
     }
 
     .panel {
-        width: 667px;
-        gap: 652px;
-        left: 15px;
         position: absolute;
-        top: 370px;
+        align-items: center;
+        left: 0px;
+        right: 0;
+        bottom: 4%;
+        gap: 380px;
+        margin-left: 10%;
+        height: 50px;
     }
 
     .panel-wrapper {
@@ -549,6 +613,18 @@ canvas {
         opacity: 40%;
         background-color: beige;
         font-size: 22px;
+    }
+
+    .full-screen {
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+        top: 10%;
+        left: 0;
+        right: 0;
+        bottom: 90%;
+        gap: 20px;
     }
 }
 
@@ -575,11 +651,14 @@ canvas {
     }
 
     .panel {
-        width: 667px;
-        gap: 494px;
-        left: 15px;
         position: absolute;
-        top: 318px;
+        align-items: center;
+        left: -20px;
+        right: 0;
+        bottom: 4%;
+        gap: 380px;
+        margin-left: 10%;
+        height: 50px;
     }
 
     .panel-wrapper {
@@ -594,6 +673,18 @@ canvas {
         opacity: 40%;
         background-color: beige;
         font-size: 16px;
+    }
+
+    .full-screen {
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+        top: 10%;
+        left: 0;
+        right: 0;
+        bottom: 90%;
+        gap: 20px;
     }
 }
 
