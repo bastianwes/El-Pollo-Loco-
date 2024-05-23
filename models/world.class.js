@@ -60,7 +60,7 @@ class World {
             this.checkHitEndboss();
             this.gameOver();
             this.wonTheGame();
-        }, 200);
+        }, 70);
     }
 
     /**

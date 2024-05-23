@@ -33,50 +33,52 @@
 </head>
 
 <body>
-    <div id="game-screen">
-        <h1>EL POLLO LOCO</h1>
-        <div class="navigation_container" id="navContainer">
-            <img class="start_screen" src="img/9_intro_outro_screens/start/startscreen_1.png">
-            <button onclick="startGame()">Start</button>
-        </div>
-        <div class="canvas-container" id="canvas-container" style="display: none;">
-            <div class="full-screen">
-                <button id="mute-sound" onclick="toggleSound()" style="display: none;"><i
-                        class="fa-solid fa-volume-xmark"></i></button>
-                <button id="sound" onclick="toggleSound()"><i class="fa-solid fa-volume-high"></i></button>
-                <button id="info" onclick="showControl()"><i class="fa-solid fa-question"></i></button>
-                <button id="expand" onclick="setFullscreen()"> <i class="fa-solid fa-expand"></i></button>
+    <div class="bg">
+        <div id="game-screen">
+            <h1>EL POLLO LOCO</h1>
+            <div class="navigation_container" id="navContainer">
+                <img class="start_screen" src="img/9_intro_outro_screens/start/startscreen_1.png">
+                <button onclick="startGame()">Start</button>
             </div>
-            <div class="restart">
-                <button id="play-again" style="display: none;" onclick="resetGame()">Play Again</button>
+            <div class="canvas-container" id="canvas-container" style="display: none;">
+                <div class="full-screen">
+                    <button id="mute-sound" onclick="toggleSound()" style="display: none;"><i
+                            class="fa-solid fa-volume-xmark"></i></button>
+                    <button id="sound" onclick="toggleSound()"><i class="fa-solid fa-volume-high"></i></button>
+                    <button id="info" onclick="showControl()"><i class="fa-solid fa-question"></i></button>
+                    <button id="expand" onclick="setFullscreen()"> <i class="fa-solid fa-expand"></i></button>
+                </div>
+                <div class="restart">
+                    <button id="play-again" style="display: none;" onclick="resetGame()">Play Again</button>
+                </div>
+                <canvas id="canvas" width="720" height="480">
+                </canvas>
             </div>
-            <canvas id="canvas" width="720" height="480">
-            </canvas>
         </div>
-    </div>
-    <div id="panel" class="panel" style="display: none;">
-        <div class="panel-wrapper">
-            <button id="btnLeft"> <i class="fa-solid fa-caret-left"></i> </button>
-            <button id="btnRight"> <i class="fa-solid fa-caret-right"></i></button>
+        <div id="panel" class="panel" style="display: none;">
+            <div class="panel-wrapper">
+                <button id="btnLeft"> <i class="fa-solid fa-caret-left"></i> </button>
+                <button id="btnRight"> <i class="fa-solid fa-caret-right"></i></button>
+            </div>
+            <div class="panel-wrapper">
+                <button id="btnJump"> <i class="fa-solid fa-caret-up"></i> </button>
+                <button id="btnThrow"> <i class="fa-solid fa-wine-bottle"></i></button>
+            </div>
         </div>
-        <div class="panel-wrapper">
-            <button id="btnJump"> <i class="fa-solid fa-caret-up"></i> </button>
-            <button id="btnThrow"> <i class="fa-solid fa-wine-bottle"></i></button>
+        <div id="control-popup" class="popup">
+            <div class="popup-content">
+                <span class="close" onclick="closeControl()">&times;</span>
+                <h2>GAME CONTROLS</h2>
+                <p>Arrow Right: Move to the right</p>
+                <p>Arrow Left: Move to the left</p>
+                <p>Space: Jump</p>
+                <p>Attack: D</p>
+            </div>
         </div>
-    </div>
-    <div id="control-popup" class="popup">
-        <div class="popup-content">
-            <span class="close" onclick="closeControl()">&times;</span>
-            <h2>GAME CONTROLS</h2>
-            <p>Arrow Right: Move to the right</p>
-            <p>Arrow Left: Move to the left</p>
-            <p>Space: Jump</p>
-            <p>Attack: D</p>
+        <div id="turn-device-popup" class="turn-device-popup">
+            <h2>Turn Your Device</h2>
+            <img src="img/phone.png" width="200px">
         </div>
-    </div>
-    <div id="turn-device-popup" class="turn-device-popup">
-        <h2>Turn Your Device</h2>
-        <img src="img/phone.png" width="200px">
     </div>
 </body>
 

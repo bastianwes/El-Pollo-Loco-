@@ -7,10 +7,18 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url('img/desert.png');
     margin: 0;
     font-family: 'zabras', Arial, Helvetica, sans-serif;
     height: 100vh;
+}
+
+.bg {
+    background-image: url('img/desert.png');
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 h1 {
