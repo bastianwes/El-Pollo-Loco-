@@ -21,9 +21,18 @@ class MovableObject extends DrawableObject {
             if (!this.splashAnimationPlayed && (this.isAboveGround() || this.speedY > 0)) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+
+                // Überprüfen, ob der Charakter den Boden erreicht hat
+                if (!this.isAboveGround() && this.speedY <= 0) {
+                    // Setze die Y-Position des Charakters auf die Bodenhöhe
+                    this.y = 190;
+                    // Stoppe die vertikale Bewegung des Charakters
+                    this.speedY = 0;
+                }
             }
         }, 1000 / 20);
     }
+
 
     /**
      * Checks if the object is above the ground.
@@ -33,7 +42,7 @@ class MovableObject extends DrawableObject {
         if (this instanceof ThrowableObject) {
             return true;
         } else {
-            return this.y < 180;
+            return this.y < 190;
         }
     }
 

@@ -6,7 +6,7 @@ class Character extends MovableObject {
 
     height = 250;
     offset_height = 130;
-    y = 70;
+    y = 190;
     world;
     speed = 4;
 
@@ -72,6 +72,8 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/long_idle/I-19.png',
         'img/2_character_pepe/1_idle/long_idle/I-20.png'
     ];
+
+    jumpInProgress = false; // Flag to track jump animation state
 
     /**
      * Creates an instance of Character.
@@ -149,15 +151,23 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_HURT);
             sounds.hurt_sound.play();
         } else if (this.isAboveGround()) {
-            this.playAnimation(this.IMAGES_JUMPING);
-        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-            this.playAnimation(this.IMAGES_WALKING);
-            this.resetIdleCount();
-        } else if (this.world.keyboard.D) {
-            this.playAnimation(this.IMAGES_IDLE);
-            this.resetIdleCount();
+            if (!this.jumpInProgress) {
+                this.jumpInProgress = true; // Start the jump animation
+                this.playAnimationOnce(this.IMAGES_JUMPING);
+            }
         } else {
-            this.handleIdleAnimation();
+            if (this.jumpInProgress) {
+                this.jumpInProgress = false; // Reset jump state when character lands
+            }
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.playAnimation(this.IMAGES_WALKING);
+                this.resetIdleCount();
+            } else if (this.world.keyboard.D) {
+                this.playAnimation(this.IMAGES_IDLE);
+                this.resetIdleCount();
+            } else {
+                this.handleIdleAnimation();
+            }
         }
         this.resetLongIdleCount();
     }
@@ -200,15 +210,31 @@ class Character extends MovableObject {
      * Makes the character jump by setting a vertical speed.
      */
     jump() {
-        sounds.walking_sound.pause();
         this.speedY = 24;
     }
 
     /**
- * Collects a coin if the character has not reached the maximum number of coins.
- * Plays a sound when a coin is collected.
- * @returns {boolean} True if the coin is collected successfully, false if the maximum number of coins is reached.
- */
+     * Plays an animation once through the array of image paths.
+     * @param {Array<string>} images - Array of image paths to play.
+     */
+    playAnimationOnce(images) {
+        this.currentAnimation = images;
+        this.currentImageIndex = 0;
+        this.animationInterval = setInterval(() => {
+            if (this.currentImageIndex < images.length) {
+                this.img = this.imageCache[images[this.currentImageIndex]];
+                this.currentImageIndex++;
+            } else {
+                clearInterval(this.animationInterval); // Stop the animation
+            }
+        }, 100);
+    }
+
+    /**
+     * Collects a coin if the character has not reached the maximum number of coins.
+     * Plays a sound when a coin is collected.
+     * @returns {boolean} True if the coin is collected successfully, false if the maximum number of coins is reached.
+     */
     collectCoin() {
         if (this.numberOfCoins < 10) {
             this.numberOfCoins++;
