@@ -8,6 +8,7 @@
     y = 190;
     height = 250;
     speed = 4;
+
     offset = {
         top: 100,
         right: 30,
@@ -29,6 +30,14 @@
         'img/2_character_pepe/3_jump/J-32.png',
         'img/2_character_pepe/3_jump/J-33.png',
         'img/2_character_pepe/3_jump/J-34.png',
+        'img/2_character_pepe/3_jump/J-35.png',
+        'img/2_character_pepe/3_jump/J-36.png',
+        'img/2_character_pepe/3_jump/J-37.png',
+        'img/2_character_pepe/3_jump/J-38.png',
+        'img/2_character_pepe/3_jump/J-39.png'
+    ];
+
+    IMAGES_FALLING = [
         'img/2_character_pepe/3_jump/J-35.png',
         'img/2_character_pepe/3_jump/J-36.png',
         'img/2_character_pepe/3_jump/J-37.png',
@@ -78,10 +87,14 @@
         'img/2_character_pepe/1_idle/long_idle/I-20.png'
     ];
 
+    /**
+     * Constructs a new Character object.
+     */
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_FALLING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_IDLE);
@@ -91,6 +104,9 @@
         this.idleCount = 0;
     }
 
+    /**
+     * Initiates animation intervals.
+     */
     animate() {
         setInterval(() => {
             sounds.walking_sound.pause();
@@ -103,19 +119,20 @@
         }, 120);
     }
 
+    /**
+     * Handles character movement.
+     */
     handleMovement() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
             this.otherDirection = false;
             sounds.walking_sound.play();
         }
-
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
             sounds.walking_sound.play();
             this.otherDirection = true;
         }
-
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             sounds.jumping_sound.play();
             this.idleCount = 0;
@@ -124,19 +141,62 @@
         }
     }
 
+    /**
+   * Updates the game camera position based on character's position.
+   */
     updateCamera() {
         this.world.camera_x = -this.x + 100;
     }
 
+    /**
+     * Handles character animations based on its state.
+     */
     handleAnimations() {
         if (this.isDead()) {
-            this.playAnimation(this.IMAGES_DEAD);
+            this.playDeadAnimation();
         } else if (this.isHurt()) {
-            this.playAnimation(this.IMAGES_HURT);
-            sounds.hurt_sound.play();
+            this.playHurtAnimation();
         } else if (this.isAboveGround()) {
+            this.handleAboveGroundAnimations();
+        } else {
+            this.handleGroundAnimations();
+        }
+        this.resetLongIdleCount();
+    }
+
+    /**
+     * Plays the animation for the character being dead.
+     */
+    playDeadAnimation() {
+        this.playAnimation(this.IMAGES_DEAD);
+    }
+
+    /**
+    * Plays the animation for the character being hurt and plays a hurt sound.
+    */
+    playHurtAnimation() {
+        this.playAnimation(this.IMAGES_HURT);
+        sounds.hurt_sound.play();
+    }
+
+    /**
+     * Handles animations when the character is above ground, such as jumping or falling.
+     */
+    handleAboveGroundAnimations() {
+        if (this.speedY > 0) {
             this.playAnimation(this.IMAGES_JUMPING);
-        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+        } else if (this.isFalling()) {
+            if (this.speedY < 0) {
+                this.playAnimation(this.IMAGES_FALLING);
+            }
+        }
+    }
+
+    /**
+    * Handles animations when the character is on the ground, based on keyboard input.
+    */
+    handleGroundAnimations() {
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(this.IMAGES_WALKING);
             this.resetIdleCount();
         } else if (this.world.keyboard.D) {
@@ -145,9 +205,11 @@
         } else {
             this.handleIdleAnimation();
         }
-        this.resetLongIdleCount();
     }
 
+    /**
+     * Handles idle animation for the character when there is no keyboard input.
+     */
     handleIdleAnimation() {
         if (!this.world.keyboard.SPACE && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
             this.playAnimation(this.IMAGES_IDLE);
@@ -161,11 +223,17 @@
         }
     }
 
+    /**
+     * Resets the idle count and pauses the sleep sound.
+     */
     resetIdleCount() {
         this.idleCount = 0;
         sounds.sleep_sound.pause();
     }
 
+    /**
+     * Resets the long idle count if the character starts moving.
+     */
     resetLongIdleCount() {
         if (this.currentAnimation === this.IMAGES_LONG_IDLE &&
             (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)) {
@@ -173,10 +241,18 @@
         }
     }
 
+    /**
+    * Makes the character jump by setting its vertical speed.
+    */
     jump() {
         this.speedY = 24;
     }
 
+    /**
+     * Collects a coin if the character has not reached the maximum number of coins.
+     * Plays a sound when a coin is collected.
+     * @returns {boolean} True if the coin is collected successfully, false if the maximum number of coins is reached.
+     */
     collectCoin() {
         if (this.numberOfCoins < 10) {
             this.numberOfCoins++;

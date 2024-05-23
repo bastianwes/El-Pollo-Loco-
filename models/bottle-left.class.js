@@ -15,7 +15,9 @@ class BottleLeft extends DrawableObject {
         left: 20
     };
 
-
+    /**
+     * Constructs a new BottleLeft object.
+     */
     constructor() {
         super().loadImage('img/6_salsa_bottle/1_salsa_bottle_on_ground.png');
         this.x = 1000 + Math.random() * 2000;

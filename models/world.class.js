@@ -2,6 +2,7 @@
  * Represents the game world.
  */
 class World {
+
     character = new Character();
     level = level1;
     canvas;
@@ -168,8 +169,8 @@ class World {
     }
 
     /**
- * Checks collisions between the character and coins.
- */
+    * Checks collisions between the character and coins.
+    */
     checkCollisionsWithCoins() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {

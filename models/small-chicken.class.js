@@ -8,14 +8,12 @@ class SmallChicken extends MovableObject {
     width = 70
     y = 360
 
-    /** @type {string[]} Array of image paths for the walking animation of the small chicken. */
     IMAGES_WALKING = [
         'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
         'img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
         'img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
     ];
 
-    /** @type {string[]} Array of image paths for the dead animation of the small chicken. */
     IMAGES_DEAD = [
         'img/3_enemies_chicken/chicken_small/2_dead/dead.png'
     ];

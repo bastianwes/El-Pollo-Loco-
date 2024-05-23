@@ -7,6 +7,7 @@ class BottleRight extends DrawableObject {
     y = 370;
     width = 60;
     height = 70;
+
     offset = {
         top: 10,
         right: 10,
@@ -14,7 +15,9 @@ class BottleRight extends DrawableObject {
         left: 20
     };
 
-
+    /**
+         * Constructs a new BottleRight object.
+         */
     constructor() {
         super().loadImage('img/6_salsa_bottle/2_salsa_bottle_on_ground.png');
         this.x = 280 + Math.random() * 2000;
