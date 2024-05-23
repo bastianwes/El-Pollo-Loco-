@@ -24,7 +24,6 @@ canvas {
 }
 
 .canvas-container {
-    display: flex;
     justify-content: center;
     flex-direction: column;
     margin-left: 5px;
