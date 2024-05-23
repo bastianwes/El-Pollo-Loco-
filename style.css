@@ -7,8 +7,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url('img/5_background/second_half_background.png');
-    backdrop-filter: blur(4px);
+    background-image: url('img/desert.png');
     margin: 0;
     font-family: 'zabras', Arial, Helvetica, sans-serif;
     height: 100vh;
@@ -329,34 +328,6 @@ canvas {
         font-size: 22px;
     }
 }
-
-.impressum {
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-.impressum h2 {
-    font-size: 30px;
-    letter-spacing: 3px;
-}
-
-.impressum p {
-    font-size: 20px;
-    letter-spacing: 2px;
-}
-
-a {
-    text-decoration: none;
-    color: white;
-    cursor: pointer;
-    font-size: 25px;
-    margin-top: 15px;
-}
-
-a:hover {
-    color: #744d30;
-}
-
 
 @media (device-height: 375px) and (device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
     .start_screen {
