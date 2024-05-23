@@ -1,7 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let defaultVolume = 0.6;
+let defaultVolume = 0.5;
 let sounds = {
     jumpOnEnemy: new Audio('audio/jumpOnEnemy.mp3'),
     bottle_sound: new Audio('audio/bottle.mp3'),
