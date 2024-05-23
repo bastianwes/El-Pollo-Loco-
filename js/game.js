@@ -46,14 +46,41 @@ function unmuteAllSounds() {
 function toggleSound() {
     let soundButton = document.getElementById('sound');
     let muteSoundButton = document.getElementById('mute-sound');
+
+    // Überprüfen, ob das Spiel vorbei ist oder gewonnen wurde
+    if (world && (world.gameOverFlag || world.wonTheGameFlag)) {
+        toggleSoundSymbol(soundButton, muteSoundButton);
+    } else {
+        toggleSoundSymbolAndState(soundButton, muteSoundButton);
+    }
+}
+
+/**
+ * Toggles sound symbol without changing sound state.
+ * @param {HTMLElement} soundButton The button representing sound.
+ * @param {HTMLElement} muteSoundButton The button representing mute sound.
+ */
+function toggleSoundSymbol(soundButton, muteSoundButton) {
     if (soundButton.style.display === 'none') {
         soundButton.style.display = 'inline-block';
         muteSoundButton.style.display = 'none';
-        unmuteAllSounds();
     } else {
         soundButton.style.display = 'none';
         muteSoundButton.style.display = 'inline-block';
+    }
+}
+
+/**
+ * Toggles sound symbol and changes sound state.
+ * @param {HTMLElement} soundButton The button representing sound.
+ * @param {HTMLElement} muteSoundButton The button representing mute sound.
+ */
+function toggleSoundSymbolAndState(soundButton, muteSoundButton) {
+    toggleSoundSymbol(soundButton, muteSoundButton);
+    if (soundButton.style.display === 'none') {
         muteAllSounds();
+    } else {
+        unmuteAllSounds();
     }
 }
 
