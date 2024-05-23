@@ -4,11 +4,16 @@
     * @returns {boolean} True if the coin is collected successfully, false if the maximum number of coins is reached.
 */class Character extends MovableObject {
 
-    height = 250;
-    offset_height = 130;
-    y = 190;
     world;
+    y = 190;
+    height = 250;
     speed = 4;
+    offset = {
+        top: 100,
+        right: 30,
+        bottom: 10,
+        left: 30
+    };
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',

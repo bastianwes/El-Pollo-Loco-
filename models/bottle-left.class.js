@@ -8,6 +8,14 @@ class BottleLeft extends DrawableObject {
     width = 60;
     height = 70;
 
+    offset = {
+        top: 10,
+        right: 10,
+        bottom: 5,
+        left: 20
+    };
+
+
     constructor() {
         super().loadImage('img/6_salsa_bottle/1_salsa_bottle_on_ground.png');
         this.x = 1000 + Math.random() * 2000;

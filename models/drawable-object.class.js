@@ -1,8 +1,4 @@
-/**
- * Represents a drawable object in the game.
- */
 class DrawableObject {
-
     img;
     imageCache = {};
     currentImage = 0;
@@ -10,160 +6,72 @@ class DrawableObject {
     y = 280;
     height = 150;
     width = 100;
+    offset = {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+    };
 
-    /**
-     * Loads an image from the given path.
-     * @param {string} path - The path to the image.
-     */
+    // loadImage('img/test.png);
     loadImage(path) {
-        this.img = new Image();
+        this.img = new Image(); // this.img = document.getElementById('image') <img id="iamge" src>
         this.img.src = path;
     }
 
-    /**
-     * Loads a single image from the given path.
-     * @param {string} path - The path to the image.
-     * @returns {HTMLImageElement} - The loaded image.
-     */
     loadSingleImage(path) {
         let img = new Image();
         img.src = path;
         return img;
     }
 
-    /**
-     * Draws the image on the canvas context at the specified position and size.
-     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
-     */
+    drawImage(ctx, img, x, y, width, height) {
+        ctx.drawImage(img, x, y, width, height);
+    }
+
+
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-    /**
-     * Draws a frame around the object depending on its type.
-     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
-     */
+    checkInstances() {
+        return this instanceof Character ||
+            this instanceof Chicken ||
+            this instanceof ThrowableObject ||
+            this instanceof SmallChicken ||
+            this instanceof BottleRight ||
+            this instanceof BottleLeft ||
+            this instanceof Coin ||
+            this instanceof Endboss
+    }
+
     drawFrame(ctx) {
-        if (this.isBottle()) {
-            this.drawBottleFrame(ctx);
+        if (this.checkInstances()) {
+            // Berechnung des Rechtecks mit Offset
+            let offsetX = this.offset.left;
+            let offsetY = this.offset.top;
+            let width = this.width - this.offset.left - this.offset.right;
+            let height = this.height - this.offset.top - this.offset.bottom;
+
+            // Zeichnen des Rechtecks mit Offset in Rot
+            ctx.beginPath();
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = 'red';
+            ctx.rect(this.x + offsetX, this.y + offsetY, width, height);
+
+
+            // Zeichnen des ursprünglichen Rechtecks in Blau
+            ctx.beginPath();
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height);
+
         }
-        if (this.isCharacter()) {
-            this.drawCharacterFrame(ctx);
-        }
-        if (this.isCoin()) {
-            this.drawCoinFrame(ctx);
-        }
-        if (this.isChicken()) {
-            this.drawChickenFrame(ctx);
-        }
-        if (this.isEndboss()) {
-            this.drawEndbossFrame(ctx);
-        }
     }
 
     /**
-     * Checks if the object is a bottle.
-     * @returns {boolean} - True if the object is a bottle, false otherwise.
-     */
-    isBottle() {
-        return this instanceof BottleRight || this instanceof BottleLeft || this instanceof ThrowableObject;
-    }
-
-    /**
-     * Checks if the object is a character.
-     * @returns {boolean} - True if the object is a character, false otherwise.
-     */
-    isCharacter() {
-        return this instanceof Character;
-    }
-
-    /**
-     * Checks if the object is a coin.
-     * @returns {boolean} - True if the object is a coin, false otherwise.
-     */
-    isCoin() {
-        return this instanceof Coin;
-    }
-
-    /**
-     * Checks if the object is a chicken.
-     * @returns {boolean} - True if the object is a chicken, false otherwise.
-     */
-    isChicken() {
-        return this instanceof Chicken || this instanceof SmallChicken;
-    }
-
-    /**
-     * Checks if the object is an end boss.
-     * @returns {boolean} - True if the object is an end boss, false otherwise.
-     */
-    isEndboss() {
-        return this instanceof Endboss;
-    }
-
-    /**
-     * Draws a frame around the bottle object.
-     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
-     */
-    drawBottleFrame(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = '1';
-        ctx.strokeStyle = 'blue';
-        ctx.rect(this.x + 15, this.y, this.width - 30, this.height);
-        ctx.stroke();
-    }
-
-    /**
-     * Draws a frame around the character object.
-     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
-     */
-    drawCharacterFrame(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = '1';
-        ctx.strokeStyle = 'red';
-        ctx.rect(this.x + 35, this.y + 130, this.width - 60, this.offset_height);
-        ctx.stroke();
-    }
-
-    /**
-     * Draws a frame around the coin object.
-     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
-     */
-    drawCoinFrame(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = '1';
-        ctx.strokeStyle = 'red';
-        ctx.rect(this.offsetX, this.offsetY, this.offset_width, this.offset_height);
-        ctx.stroke();
-    }
-
-    /**
-     * Draws a frame around the chicken object.
-     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
-     */
-    drawChickenFrame(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = '1';
-        ctx.strokeStyle = 'blue';
-        ctx.rect(this.x + 10, this.y + 5, this.width - 15, this.height);
-        ctx.stroke();
-    }
-
-    /**
-     * Draws a frame around the end boss object.
-     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
-     */
-    drawEndbossFrame(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = '1';
-        ctx.strokeStyle = 'blue';
-        ctx.rect(this.x + 40, this.y + 50, this.width, this.height - 80);
-        ctx.stroke();
-    }
-
-    /**
-     * Loads images from an array of paths and caches them.
-     * @param {string[]} arr - Array of image paths.
+     *
+     * @param {Array} arr - ['img/image1.png', 'img/image2.png', ...]
      */
     loadImages(arr) {
         arr.forEach((path) => {
@@ -173,4 +81,5 @@ class DrawableObject {
             this.imageCache[path] = img;
         });
     }
+
 }
