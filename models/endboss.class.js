@@ -65,7 +65,6 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.x = 2400;
         this.speed = 0.5;
-        this.deadAnimationPlayed = false;
         this.animate();
     }
 
@@ -74,28 +73,18 @@ class Endboss extends MovableObject {
      */
     animate() {
         setInterval(() => {
-            if (!this.deadAnimationPlayed) {
-                if (this.isDead()) {
-                    this.playDeadAnimation();
-                } else if (this.isHurt()) {
-                    this.playAnimation(this.IMAGES_HURT);
-                } else if (this.endBossHurt()) {
-                    this.playAnimation(this.IMAGES_ATTACK);
-                    this.moveTowardsCharacter();
-                    sounds.angry_sound.play();
-                } else {
-                    this.playAnimation(this.IMAGES_ALERT);
-                }
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } else if (this.endBossHurt()) {
+                this.playAnimation(this.IMAGES_ATTACK);
+                this.moveTowardsCharacter();
+                sounds.angry_sound.play();
+            } else {
+                this.playAnimation(this.IMAGES_ALERT);
             }
         }, 200);
     }
 
-    /**
-     * Plays the dead animation of the end boss.
-     */
-    playDeadAnimation() {
-        this.deadAnimationPlayed = true;
-        let lastDeadImage = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
-        this.playAnimation([lastDeadImage], true);
-    }
 }

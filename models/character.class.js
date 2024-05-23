@@ -111,12 +111,16 @@ class Character extends MovableObject {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
             this.otherDirection = false;
-            sounds.walking_sound.play();
+            if (!this.isAboveGround()) {
+                sounds.walking_sound.play();
+            }
         }
 
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
-            sounds.walking_sound.play();
+            if (!this.isAboveGround()) {
+                sounds.walking_sound.play();
+            }
             this.otherDirection = true;
         }
 
@@ -196,6 +200,7 @@ class Character extends MovableObject {
      * Makes the character jump by setting a vertical speed.
      */
     jump() {
+        sounds.walking_sound.pause();
         this.speedY = 24;
     }
 
